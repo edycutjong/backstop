@@ -1,0 +1,37 @@
+# Secrets — never commit
+.env
+.env.*
+!.env.example
+
+# Node / TS
+node_modules/
+dist/
+coverage/
+
+# Foundry
+out/
+cache/
+broadcast/
+dependencies/
+data/
+
+# Misc
+__pycache__/
+.next/
+.DS_Store
+
+# Playwright / Lighthouse (web/)
+web/test-results/
+web/playwright-report/
+web/blob-report/
+web/playwright/.cache/
+web/.lighthouseci/
+
+# TS incremental build info
+*.tsbuildinfo
+
+# Synced brand-asset mirror (README uses the two copies in docs/ directly)
+docs/assets/
+
+# shipcheck local QA output
+web/shipcheck-out/

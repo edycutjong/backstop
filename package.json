@@ -1,0 +1,29 @@
+{
+  "name": "backstop",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Redemption insurance for FXRP, triggered by Flare FDC ReferencedPaymentNonexistence proofs.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "spike": "tsx scripts/spike.ts",
+    "spike:view": "tsx scripts/spike.ts --stage a,b,c",
+    "spike:all": "tsx scripts/spike.ts --stage all",
+    "keeper": "tsx scripts/keeper.ts",
+    "keeper:once": "tsx scripts/keeper.ts --once",
+    "keeper:dry": "tsx scripts/keeper.ts --dry-run",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "viem": "^2.21.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  }
+}
