@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="Backstop icon">
+  <!-- Backstop mark: a falling dot arrested by the wall-and-floor cradle.
+       Geometry is canonical (assets/brand/DESIGN.md, section 4): tile r 112,
+       stroke 46, dot r 57 tangent to inner wall + floor. The CSS var(token, hex)
+       pattern makes this file dual-use: hex fallback when rasterized standalone,
+       live design token when embedded in-app. -->
+  <rect width="512" height="512" rx="112" fill="var(--ink-950, #0D1522)"/>
+  <!-- trajectory: the fall that was stopped -->
+  <path d="M 118 132 C 196 132 250 176 272 244"
+        fill="none" stroke="var(--slate-500, #55677D)" stroke-width="18"
+        stroke-linecap="round" stroke-dasharray="0.1 52"/>
+  <!-- the backstop: wall + floor, one continuous stroke -->
+  <path d="M 368 120 V 292 A 92 92 0 0 1 276 384 H 132"
+        fill="none" stroke="var(--primary, #3ECF9A)" stroke-width="46" stroke-linecap="round"/>
+  <!-- the redemption, caught -->
+  <circle cx="288" cy="304" r="57" fill="var(--paper, #F7F6F1)"/>
+</svg>

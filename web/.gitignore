@@ -1,0 +1,4 @@
+# shipcheck — local QA tooling (config embeds an absolute local path; keep private)
+shipcheck-out/
+shipcheck.mjs
+shipcheck.config.json

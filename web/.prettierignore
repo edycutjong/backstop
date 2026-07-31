@@ -1,0 +1,12 @@
+node_modules
+.next
+package-lock.json
+public
+next-env.d.ts
+*.md
+
+# Generated test/perf artifacts
+test-results
+playwright-report
+blob-report
+.lighthouseci
