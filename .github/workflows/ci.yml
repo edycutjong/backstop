@@ -154,6 +154,9 @@ jobs:
       contents: write # create tags + releases + commit CHANGELOG
       issues: write
       pull-requests: write
+    outputs:
+      published: ${{ steps.semrel.outputs.published }}
+      version: ${{ steps.semrel.outputs.version }}
     steps:
       - uses: actions/checkout@v4
         with:
@@ -164,11 +167,61 @@ jobs:
         with:
           node-version: 20
       - name: Semantic Release
+        id: semrel
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: >-
           npx --yes
           -p semantic-release@24
           -p @semantic-release/changelog@6
+          -p @semantic-release/exec@6
           -p @semantic-release/git@10
           semantic-release
+
+  # ── Deploy · Vercel production (only when a NEW version was released) ──
+  deploy:
+    name: "Deploy · Vercel (production)"
+    runs-on: ubuntu-latest
+    needs: [release]
+    if: needs.release.outputs.published == 'true'
+    environment: production
+    defaults:
+      run:
+        working-directory: web
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - name: Gate on Vercel secrets (skip cleanly if not configured)
+        id: gate
+        run: |
+          if [ -n "${{ secrets.VERCEL_TOKEN }}" ] && [ -n "$VERCEL_ORG_ID" ] && [ -n "$VERCEL_PROJECT_ID" ]; then
+            echo "ready=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "ready=false" >> "$GITHUB_OUTPUT"
+            echo "::warning title=Vercel deploy skipped::Set repo secrets VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID to enable production deploys."
+          fi
+      - uses: actions/checkout@v4
+        if: steps.gate.outputs.ready == 'true'
+      - name: Setup Node.js
+        if: steps.gate.outputs.ready == 'true'
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install Vercel CLI
+        if: steps.gate.outputs.ready == 'true'
+        run: npm i -g vercel@latest
+      - name: Pull Vercel env (production)
+        if: steps.gate.outputs.ready == 'true'
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build (Vercel, prod)
+        if: steps.gate.outputs.ready == 'true'
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy prebuilt to production
+        if: steps.gate.outputs.ready == 'true'
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }} > deployment-url.txt
+      - name: Summarize deployment
+        if: steps.gate.outputs.ready == 'true'
+        run: |
+          echo "### 🚀 Deployed v${{ needs.release.outputs.version }} to production" >> "$GITHUB_STEP_SUMMARY"
+          echo "$(cat deployment-url.txt)" >> "$GITHUB_STEP_SUMMARY"
