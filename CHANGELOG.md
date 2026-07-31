@@ -1,3 +1,17 @@
+# [1.3.0](https://github.com/edycutjong/backstop/compare/v1.2.0...v1.3.0) (2026-07-31)
+
+
+### Bug Fixes
+
+* **deck:** repair page-5 architecture arrows + embed live-proof QR on closing slide ([97bd260](https://github.com/edycutjong/backstop/commit/97bd26077991b0734442304b9923f6c4ba308221))
+* **web:** hide network badge below lg so header nav fits at tablet (768px) ([63b4f64](https://github.com/edycutjong/backstop/commit/63b4f643db8f59fe89096f3dd550afdffb52a805))
+* **web:** wrap footer links to prevent horizontal overflow at tablet (768px) ([53e71d8](https://github.com/edycutjong/backstop/commit/53e71d8105b4c84e066a6e8361fd421d4e939234))
+
+
+### Features
+
+* **web:** add GitHub source links in header nav + footer ([51382da](https://github.com/edycutjong/backstop/commit/51382da3c294d5ec4ac6c62e8a0036e55d3acde1))
+
 # [1.2.0](https://github.com/edycutjong/backstop/compare/v1.1.1...v1.2.0) (2026-07-31)
 
 
