@@ -218,24 +218,22 @@ export default function Home() {
             className="anim-rise mt-9 flex flex-wrap gap-3"
             style={{ animationDelay: "210ms" }}
           >
-            <Link href="/guard">
-              <Button className="sheen px-6 py-3 text-base shadow-[0_0_0_1px_rgba(62,207,154,0.35),0_10px_30px_-8px_rgba(62,207,154,0.55)] transition-transform hover:scale-[1.02]">
-                Guard a redemption →
-              </Button>
-            </Link>
-            <Link href="/underwrite">
-              <Button variant="secondary" className="px-6 py-3 text-base">
-                Underwrite &amp; earn
-              </Button>
-            </Link>
-            <Link href="/integrations/verify">
-              <Button
-                variant="ghost"
-                className="px-6 py-3 text-base text-guard-400"
-              >
-                Verify the integration
-              </Button>
-            </Link>
+            <Button
+              asChild
+              className="sheen px-6 py-3 text-base shadow-[0_0_0_1px_rgba(62,207,154,0.35),0_10px_30px_-8px_rgba(62,207,154,0.55)] transition-transform hover:scale-[1.02]"
+            >
+              <Link href="/guard">Guard a redemption →</Link>
+            </Button>
+            <Button asChild variant="secondary" className="px-6 py-3 text-base">
+              <Link href="/underwrite">Underwrite &amp; earn</Link>
+            </Button>
+            <Button
+              asChild
+              variant="ghost"
+              className="px-6 py-3 text-base text-guard-400"
+            >
+              <Link href="/integrations/verify">Verify the integration</Link>
+            </Button>
           </div>
 
           {/* [E5] Social proof — HONEST hard facts, not user counts. */}
@@ -495,24 +493,26 @@ export default function Home() {
               fund a throwaway key at the Flare faucet and try the full flow.
             </p>
             <div className="flex flex-wrap gap-3">
-              <Link href="/guard">
-                <Button className="sheen px-7 py-3.5 text-base transition-transform hover:scale-[1.02]">
-                  Guard a redemption →
-                </Button>
-              </Link>
-              <Link href="/underwrite">
-                <Button variant="secondary" className="px-7 py-3.5 text-base">
-                  Underwrite &amp; earn
-                </Button>
-              </Link>
-              <Link href="/integrations/verify">
-                <Button
-                  variant="ghost"
-                  className="px-7 py-3.5 text-base text-guard-400"
-                >
-                  Verify the integration
-                </Button>
-              </Link>
+              <Button
+                asChild
+                className="sheen px-7 py-3.5 text-base transition-transform hover:scale-[1.02]"
+              >
+                <Link href="/guard">Guard a redemption →</Link>
+              </Button>
+              <Button
+                asChild
+                variant="secondary"
+                className="px-7 py-3.5 text-base"
+              >
+                <Link href="/underwrite">Underwrite &amp; earn</Link>
+              </Button>
+              <Button
+                asChild
+                variant="ghost"
+                className="px-7 py-3.5 text-base text-guard-400"
+              >
+                <Link href="/integrations/verify">Verify the integration</Link>
+              </Button>
             </div>
           </div>
         </div>

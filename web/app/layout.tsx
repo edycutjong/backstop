@@ -77,6 +77,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        {/* Warm the Coston2 RPC connection early (read-only contract reads). */}
+        <link rel="preconnect" href="https://coston2-api.flare.network" />
+        <link rel="dns-prefetch" href="https://coston2-api.flare.network" />
+      </head>
       <body>
         <Providers>
           <SiteHeader />
