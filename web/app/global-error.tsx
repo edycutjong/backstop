@@ -28,7 +28,9 @@ export default function GlobalError({
           padding: "2rem",
         }}
       >
-        <h1 style={{ fontSize: "1.5rem", margin: 0 }}>Backstop failed to load.</h1>
+        <h1 style={{ fontSize: "1.5rem", margin: 0 }}>
+          Backstop failed to load.
+        </h1>
         <p style={{ maxWidth: 420, color: "#94a3b8", lineHeight: 1.6 }}>
           An unexpected error broke the app shell. Nothing on-chain was
           affected. Reload to try again.

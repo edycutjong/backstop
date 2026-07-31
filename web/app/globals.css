@@ -229,11 +229,7 @@
     right: 0;
     top: 0;
     height: 34%;
-    background: linear-gradient(
-      180deg,
-      rgba(62, 207, 154, 0.08),
-      transparent
-    );
+    background: linear-gradient(180deg, rgba(62, 207, 154, 0.08), transparent);
     animation: scan 4.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     pointer-events: none;
   }
