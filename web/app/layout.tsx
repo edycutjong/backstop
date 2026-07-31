@@ -96,6 +96,20 @@ export default function RootLayout({
                 <span>
                   Coston2 (chain 114) · read-only views need no wallet
                 </span>
+                {process.env.NEXT_PUBLIC_APP_VERSION ? (
+                  <a
+                    href={`https://github.com/edycutjong/backstop/releases/tag/v${process.env.NEXT_PUBLIC_APP_VERSION}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="rounded border border-ink-line px-1.5 py-0.5 text-slate-400 transition-colors hover:text-guard-400"
+                    title="Deployed release"
+                  >
+                    v{process.env.NEXT_PUBLIC_APP_VERSION}
+                    {process.env.NEXT_PUBLIC_COMMIT_SHA
+                      ? ` · ${process.env.NEXT_PUBLIC_COMMIT_SHA}`
+                      : ""}
+                  </a>
+                ) : null}
               </span>
             </div>
           </footer>

@@ -1,6 +1,31 @@
+import { execSync } from "node:child_process";
+import { readFileSync } from "node:fs";
+
+const pkg = JSON.parse(
+  readFileSync(new URL("./package.json", import.meta.url), "utf8"),
+);
+
+// Resolve the short commit SHA from the CI/Vercel env, falling back to git,
+// then to empty (e.g. a source-only remote build with no .git).
+function commitSha() {
+  const fromEnv =
+    process.env.NEXT_PUBLIC_COMMIT_SHA || process.env.VERCEL_GIT_COMMIT_SHA;
+  if (fromEnv) return fromEnv.slice(0, 7);
+  try {
+    return execSync("git rev-parse --short HEAD").toString().trim();
+  } catch {
+    return "";
+  }
+}
+
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
+  // Baked at build time so the footer can show the deployed release + commit.
+  env: {
+    NEXT_PUBLIC_APP_VERSION: process.env.NEXT_PUBLIC_APP_VERSION || pkg.version,
+    NEXT_PUBLIC_COMMIT_SHA: commitSha(),
+  },
   // Clean URL for the static pitch deck served from public/.
   async rewrites() {
     return [{ source: "/pitch", destination: "/pitch-deck.html" }];
