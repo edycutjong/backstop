@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/edycutjong/backstop/compare/v1.3.0...v1.3.1) (2026-07-31)
+
+
+### Bug Fixes
+
+* **web:** Lighthouse 100 — a11y target-size + RPC preconnect ([1842e58](https://github.com/edycutjong/backstop/commit/1842e58ec2026ae98bd3a6017b002e7c7a0af638))
+
 # [1.3.0](https://github.com/edycutjong/backstop/compare/v1.2.0...v1.3.0) (2026-07-31)
 
 
