@@ -184,6 +184,10 @@ jobs:
     runs-on: ubuntu-latest
     needs: [release]
     if: needs.release.outputs.published == 'true'
+    # Deploy is best-effort: a Vercel auth/env hiccup must not fail the whole
+    # pipeline (the site also deploys via CLI). Auto-deploy works once the
+    # VERCEL_TOKEN is scoped to the "Edy Cu's projects" team.
+    continue-on-error: true
     environment: production
     defaults:
       run:
