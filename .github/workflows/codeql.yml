@@ -37,3 +37,9 @@ jobs:
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v3
+        # Code scanning upload needs GitHub Advanced Security, which private repos
+        # on the free plan don't have. Analyze always; upload only when public
+        # (auto-enables at submission). continue-on-error guards the weekly schedule.
+        continue-on-error: true
+        with:
+          upload: ${{ github.event.repository.visibility == 'public' && 'always' || 'never' }}
