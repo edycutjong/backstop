@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/edycutjong/backstop/compare/v1.1.0...v1.1.1) (2026-07-31)
+
+
+### Bug Fixes
+
+* **ci:** run Vercel deploy gate at workspace root (web/ absent pre-checkout) ([a45a477](https://github.com/edycutjong/backstop/commit/a45a477f2fbabe6ff23586cb54a72bc64aa35375))
+
 # [1.1.0](https://github.com/edycutjong/backstop/compare/v1.0.0...v1.1.0) (2026-07-31)
 
 
