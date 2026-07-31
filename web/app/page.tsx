@@ -196,12 +196,14 @@ export default function Home() {
 
           {/* [E3] SEO title — massive ledger type, staggered reveal. */}
           <h1
-            className="anim-rise mt-6 max-w-4xl text-4xl font-semibold leading-[1.05] tracking-tight text-mist-100 sm:text-6xl"
+            className="hero-rule anim-rise mt-6 max-w-4xl text-4xl font-semibold leading-[1.05] tracking-tight text-mist-100 sm:text-6xl"
             style={{ animationDelay: "70ms" }}
           >
             Redeem FXRP
             <br className="hidden sm:block" />{" "}
-            <span className="text-guard-400">without the default risk.</span>
+            <span className="accent text-guard-400">
+              without the default risk.
+            </span>
           </h1>
 
           <p
@@ -238,7 +240,7 @@ export default function Home() {
 
           {/* [E5] Social proof — HONEST hard facts, not user counts. */}
           <div
-            className="anim-rise mt-14 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-ink-line pt-8 sm:grid-cols-5"
+            className="anim-rise mt-12 grid grid-cols-2 gap-x-8 gap-y-6 sm:grid-cols-5"
             style={{ animationDelay: "300ms" }}
           >
             {proofStrip.map((p) => (
