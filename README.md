@@ -116,6 +116,20 @@ or `npm run spike:all` (funded).
 > (tx [`0x5774a763…9c540a`](https://coston2-explorer.flare.network/tx/0x5774a7631bdcfcf4d0bc90c25a3ce2c08664451213c617450d73b3a8149c540a),
 > voting round 1409442). Full benchmark + reproduce steps: [`DEMO.md`](DEMO.md).
 
+## ✅ Proof: a real end-to-end claim (PAID, on-chain)
+
+Beyond the isolated FDC gate, the **entire product loop ran live on Coston2 against a genuine FAssets
+redemption default** — `redeem` → `buyGuard` → the assigned agent misses the deadline → keeper proves
+non-payment via FDC → `claim` pays the redeemer make-whole:
+
+> **✅ Guard #1 PAID (2026-07-31).** Real ticket `redemptionRequestId 42456370` (agent `0x165c…E028`).
+> The keeper reconstructed the `ReferencedPaymentNonexistence` window directly from the live
+> `redemptionRequestInfo` — its **primary** path, not the synthetic fallback — and `Backstop.claim`
+> paid **170.08 C2FLR** to the redeemer. Claim tx
+> [`0xd4c7be56…`](https://coston2-explorer.flare.network/tx/0xd4c7be5695886de05fb05912e7a0e1f21d06e049661a47322d3f0d53befb43f0)
+> (block 33481588). Full tx trail + one-command reproduce (`npm run route-b`):
+> [`DEMO.md`](DEMO.md) · [`scripts/route-b.ts`](scripts/route-b.ts).
+
 ## 🚀 Deployed on Coston2 (chain 114) — verified source
 
 | Contract | Address |

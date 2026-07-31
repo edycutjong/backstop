@@ -15,7 +15,8 @@
     "keeper": "tsx scripts/keeper.ts",
     "keeper:once": "tsx scripts/keeper.ts --once",
     "keeper:dry": "tsx scripts/keeper.ts --dry-run",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "route-b": "tsx scripts/route-b.ts"
   },
   "dependencies": {
     "dotenv": "^16.4.7",
