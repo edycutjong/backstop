@@ -82,9 +82,9 @@ export default function RootLayout({
           <SiteHeader />
           <main className="mx-auto max-w-6xl px-5 py-10">{children}</main>
           <footer className="border-t border-ink-line">
-            <div className="mx-auto flex max-w-6xl flex-col gap-1 px-5 py-6 font-mono text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
+            <div className="mx-auto flex max-w-6xl flex-col gap-x-4 gap-y-2 px-5 py-6 font-mono text-xs text-slate-500 sm:flex-row sm:flex-wrap sm:items-center sm:justify-between">
               <span>Backstop · Flare Summer Signal · Bounty 1 (FAssets)</span>
-              <span className="flex items-center gap-3">
+              <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
                 <a
                   href="/pitch"
                   target="_blank"
