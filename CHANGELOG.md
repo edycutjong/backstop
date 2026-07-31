@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/edycutjong/backstop/compare/v1.1.1...v1.2.0) (2026-07-31)
+
+
+### Features
+
+* **web:** show deployed release version + commit in footer ([4baf637](https://github.com/edycutjong/backstop/commit/4baf637d87f1d0f3aeaedd8fff451cd003fb471d))
+
 ## [1.1.1](https://github.com/edycutjong/backstop/compare/v1.1.0...v1.1.1) (2026-07-31)
 
 
