@@ -93,6 +93,14 @@ export default function RootLayout({
                 >
                   Pitch deck ↗
                 </a>
+                <a
+                  href="https://github.com/edycutjong/backstop"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-slate-400 transition-colors hover:text-guard-400"
+                >
+                  GitHub ↗
+                </a>
                 <span>
                   Coston2 (chain 114) · read-only views need no wallet
                 </span>

@@ -49,6 +49,14 @@ export function SiteHeader() {
             >
               Pitch ↗
             </a>
+            <a
+              href="https://github.com/edycutjong/backstop"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="rounded-lg px-3 py-1.5 font-mono text-sm text-slate-300 transition-colors hover:text-mist-100"
+            >
+              GitHub ↗
+            </a>
           </nav>
         </div>
         <div className="flex items-center gap-3">
