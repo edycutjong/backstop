@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/edycutjong/backstop/compare/v1.4.0...v1.5.0) (2026-07-31)
+
+
+### Features
+
+* real end-to-end claim on Coston2 — guard [#1](https://github.com/edycutjong/backstop/issues/1) PAID against a genuine FAssets default ([1a0d93d](https://github.com/edycutjong/backstop/commit/1a0d93ddcf2da07ae672a8bd8482316f6628db09))
+
 # [1.4.0](https://github.com/edycutjong/backstop/compare/v1.3.1...v1.4.0) (2026-07-31)
 
 
