@@ -60,7 +60,7 @@ export function SiteHeader() {
           </nav>
         </div>
         <div className="flex items-center gap-3">
-          <span className="hidden items-center gap-1.5 rounded-full border border-ember-300/40 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-ember-300 sm:inline-flex">
+          <span className="hidden items-center gap-1.5 rounded-full border border-ember-300/40 px-3 py-1 font-mono text-[11px] uppercase tracking-wider text-ember-300 lg:inline-flex">
             <span className="inline-block h-1.5 w-1.5 rounded-full bg-ember-300" />
             Coston2 · 114
           </span>
