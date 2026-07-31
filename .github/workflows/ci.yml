@@ -194,6 +194,7 @@ jobs:
     steps:
       - name: Gate on Vercel secrets (skip cleanly if not configured)
         id: gate
+        working-directory: ${{ github.workspace }} # runs before checkout — web/ doesn't exist yet
         run: |
           if [ -n "${{ secrets.VERCEL_TOKEN }}" ] && [ -n "$VERCEL_ORG_ID" ] && [ -n "$VERCEL_PROJECT_ID" ]; then
             echo "ready=true" >> "$GITHUB_OUTPUT"
