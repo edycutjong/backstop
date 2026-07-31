@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/edycutjong/backstop/compare/v1.3.1...v1.4.0) (2026-07-31)
+
+
+### Features
+
+* **web:** hero headline hover ledger-rule + drop proof-strip divider ([eb92f28](https://github.com/edycutjong/backstop/commit/eb92f284dae589bf7447cc1508ea3fd3e227f9c3))
+
 ## [1.3.1](https://github.com/edycutjong/backstop/compare/v1.3.0...v1.3.1) (2026-07-31)
 
 
