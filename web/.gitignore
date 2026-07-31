@@ -2,3 +2,4 @@
 shipcheck-out/
 shipcheck.mjs
 shipcheck.config.json
+.vercel
