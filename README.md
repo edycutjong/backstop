@@ -13,6 +13,7 @@
   [![FDC Gate PASSED](https://img.shields.io/badge/FDC_Gate-PASSED_·_99.3s-3ECF9A?style=for-the-badge&labelColor=0F0F0F)](https://coston2-explorer.flare.network/tx/0x5774a7631bdcfcf4d0bc90c25a3ce2c08664451213c617450d73b3a8149c540a)
   [![Deployed on Coston2](https://img.shields.io/badge/Coston2-Deployed_·_Verified-e62058?style=for-the-badge&labelColor=0F0F0F)](https://coston2-explorer.flare.network/address/0x38EB571B43C6eC03e37c8fC9514640D9d743DDca)
   [![Flare Summer Signal](https://img.shields.io/badge/Flare_Summer_Signal-Bounty_1_·_FAssets-8b5cf6?style=for-the-badge&labelColor=0F0F0F)](https://dorahacks.io/hackathon/flaresummersignal)
+  [![DoraHacks BUIDL](https://img.shields.io/badge/DoraHacks-View_BUIDL-6E4AED?style=for-the-badge&labelColor=0F0F0F)](https://dorahacks.io/buidl/47366)
 
   <br/>
 
