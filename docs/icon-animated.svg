@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512"
+     role="img" aria-label="Backstop animated icon: a falling redemption dot is caught by the green wall-and-floor backstop">
+  <!-- Master loop: 6s. SMIL drives draws/motion, CSS drives pops/breath.
+       No text, no external refs. Static icon.svg remains the favicon/raster source. -->
+  <style>
+    .story { animation: loopFade 6s linear infinite; }
+    @keyframes loopFade {
+      0% { opacity: 0; } 2% { opacity: 1; }
+      96% { opacity: 1; } 100% { opacity: 0; }
+    }
+    .dot-core {
+      transform-box: fill-box; transform-origin: center;
+      animation: dotLand 6s cubic-bezier(.2, 1.4, .4, 1) infinite;
+    }
+    @keyframes dotLand {
+      0%, 58% { transform: scale(1); }
+      61% { transform: scale(1.1, 0.88); }
+      64% { transform: scale(0.96, 1.05); }
+      67%, 100% { transform: scale(1); }
+    }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+
+  <defs>
+    <filter id="breath" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="12"/>
+    </filter>
+  </defs>
+
+  <!-- vault tile -->
+  <rect width="512" height="512" rx="112" fill="#0D1522"/>
+
+  <g class="story">
+    <!-- trajectory: the fall that was stopped (reveals before the drop) -->
+    <path d="M 118 132 C 196 132 250 176 272 244"
+          fill="none" stroke="#55677D" stroke-width="18"
+          stroke-linecap="round" stroke-dasharray="0.1 52" opacity="0">
+      <animate attributeName="opacity" dur="6s" repeatCount="indefinite"
+               values="0;0;1;1" keyTimes="0;0.15;0.35;1"/>
+    </path>
+
+    <!-- glow breath: blurred duplicate of the backstop stroke -->
+    <path d="M 368 120 V 292 A 92 92 0 0 1 276 384 H 132"
+          fill="none" stroke="#3ECF9A" stroke-width="46" stroke-linecap="round"
+          filter="url(#breath)" opacity="0">
+      <animate attributeName="opacity" dur="6s" repeatCount="indefinite"
+               values="0;0;0;0.38;0.16;0.42;0.42;0"
+               keyTimes="0;0.35;0.58;0.66;0.76;0.86;0.94;1"/>
+    </path>
+
+    <!-- the backstop draws itself in: wall, then floor, one continuous stroke -->
+    <path d="M 368 120 V 292 A 92 92 0 0 1 276 384 H 132"
+          fill="none" stroke="#3ECF9A" stroke-width="46" stroke-linecap="round"
+          pathLength="100" style="stroke-dasharray: 100;">
+      <animate attributeName="stroke-dashoffset" dur="6s" repeatCount="indefinite"
+               values="100;100;0;0" keyTimes="0;0.05;0.35;1"/>
+    </path>
+
+    <!-- landing ripple -->
+    <circle cx="288" cy="304" fill="none" stroke="#3ECF9A" stroke-width="8" opacity="0">
+      <animate attributeName="r" dur="6s" repeatCount="indefinite"
+               values="66;66;126;126" keyTimes="0;0.60;0.72;1"/>
+      <animate attributeName="opacity" dur="6s" repeatCount="indefinite"
+               values="0;0;0.5;0;0" keyTimes="0;0.60;0.62;0.72;1"/>
+    </circle>
+
+    <!-- the redemption: falls along the trajectory, arrested mid-loop -->
+    <g opacity="0">
+      <animate attributeName="opacity" dur="6s" repeatCount="indefinite"
+               values="0;0;1;1;1" keyTimes="0;0.38;0.40;0.99;1"/>
+      <g>
+        <animateMotion dur="6s" repeatCount="indefinite"
+                       keyPoints="0;0;1;1" keyTimes="0;0.40;0.60;1"
+                       calcMode="linear"
+                       path="M 118 132 C 196 132 250 176 272 244 C 282 274 288 288 288 304"/>
+        <circle class="dot-core" cx="0" cy="0" r="57" fill="#F7F6F1"/>
+      </g>
+    </g>
+  </g>
+</svg>

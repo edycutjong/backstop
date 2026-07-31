@@ -1,0 +1,23 @@
+version: 2
+updates:
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+
+  # Next.js frontend
+  - package-ecosystem: "npm"
+    directory: "/web"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+
+  # Root TS tooling (scripts/spike.ts, scripts/keeper.ts)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+    open-pull-requests-limit: 10
+# Note: Solidity deps are managed by Soldeer (soldeer.lock), which Dependabot
+# does not yet support natively — pinned by checksum + integrity hash instead.

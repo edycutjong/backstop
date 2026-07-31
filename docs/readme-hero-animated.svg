@@ -1,0 +1,250 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 320" width="1280" height="320"
+     role="img" aria-label="Backstop — redemption insurance for FXRP on Flare. An FAsset agent defaults, the FDC proves the payment never happened, and the pool pays the redeemer.">
+  <!-- Master loop: 8s. Left brand column is persistent (shimmer + pulse only);
+       the right product story draws, settles a claim, and loop-fades.
+       Wordmark = hand-drawn monoline paths (DESIGN.md §3) — never a font.
+       No external refs, no scripts. -->
+  <style>
+    .story { animation: loopFade 8s linear infinite; }
+    @keyframes loopFade {
+      0% { opacity: 0; } 2% { opacity: 1; }
+      96% { opacity: 1; } 100% { opacity: 0; }
+    }
+    .pop-ticket {
+      transform-box: fill-box; transform-origin: center;
+      animation: ticketPop 8s cubic-bezier(.2, 1.4, .4, 1) infinite;
+    }
+    @keyframes ticketPop {
+      0% { opacity: 0; transform: scale(0.85); }
+      3% { opacity: 1; transform: scale(1.05); }
+      5%, 100% { opacity: 1; transform: scale(1); }
+    }
+    .default-caption { animation: defaultBlink 8s steps(1, end) infinite; }
+    @keyframes defaultBlink {
+      0%, 29% { opacity: 0; }
+      30% { opacity: 1; } 32% { opacity: 0.25; }
+      34% { opacity: 1; } 36% { opacity: 0.4; }
+      38%, 100% { opacity: 1; }
+    }
+    .seal-paid {
+      transform-box: fill-box; transform-origin: center;
+      animation: sealPop 8s cubic-bezier(.2, 1.4, .4, 1) infinite;
+    }
+    @keyframes sealPop {
+      0%, 73% { opacity: 0; transform: scale(0.6) rotate(-8deg); }
+      76% { opacity: 1; transform: scale(1.12) rotate(2deg); }
+      79%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+    .metric-pulse { animation: metricPulse 8s ease-in-out infinite; }
+    @keyframes metricPulse {
+      0%, 100% { opacity: 0.68; }
+      50% { opacity: 1; }
+    }
+    .aurora-1 { animation: drift1 16s ease-in-out infinite alternate; }
+    .aurora-2 { animation: drift2 19s ease-in-out infinite alternate; }
+    @keyframes drift1 { from { transform: translate(0, 0); } to { transform: translate(-70px, 26px); } }
+    @keyframes drift2 { from { transform: translate(0, 0); } to { transform: translate(60px, -20px); } }
+    @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+  </style>
+
+  <defs>
+    <clipPath id="plate"><rect width="1280" height="320" rx="24"/></clipPath>
+    <pattern id="net" width="36" height="36" patternUnits="userSpaceOnUse">
+      <circle cx="18" cy="18" r="1.5" fill="#24303F"/>
+    </pattern>
+    <filter id="aura" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="40"/>
+    </filter>
+    <filter id="cometBlur" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="2"/>
+    </filter>
+    <filter id="breath" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="8"/>
+    </filter>
+    <linearGradient id="wmGrad" gradientUnits="userSpaceOnUse" x1="256" y1="0" x2="452" y2="0">
+      <stop offset="0" stop-color="#3ECF9A"/>
+      <stop offset="0.44" stop-color="#3ECF9A"/>
+      <stop offset="0.5" stop-color="#C4F6E2"/>
+      <stop offset="0.56" stop-color="#3ECF9A"/>
+      <stop offset="1" stop-color="#3ECF9A"/>
+      <animateTransform attributeName="gradientTransform" type="translate" dur="8s" repeatCount="indefinite"
+                        values="-240 0;-240 0;260 0;260 0" keyTimes="0;0.18;0.4;1"/>
+    </linearGradient>
+    <linearGradient id="beamGrad" gradientUnits="objectBoundingBox" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#E9EDF2" stop-opacity="0"/>
+      <stop offset="0.5" stop-color="#E9EDF2" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#E9EDF2" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <g clip-path="url(#plate)">
+    <!-- backdrop -->
+    <rect width="1280" height="320" fill="#0D1522"/>
+    <rect width="1280" height="320" fill="url(#net)"/>
+    <g class="aurora-1"><circle cx="1040" cy="30" r="180" fill="#3ECF9A" opacity="0.07" filter="url(#aura)"/></g>
+    <g class="aurora-2"><circle cx="170" cy="300" r="160" fill="#0B7A57" opacity="0.09" filter="url(#aura)"/></g>
+
+    <!-- one beam sweep per loop -->
+    <g transform="skewX(-14)" opacity="0.5">
+      <rect x="0" y="-20" width="140" height="360" fill="url(#beamGrad)" opacity="0.12">
+        <animateTransform attributeName="transform" type="translate" dur="8s" repeatCount="indefinite"
+                          values="-320 0;-320 0;1620 0;1620 0" keyTimes="0;0.3;0.55;1"/>
+      </rect>
+    </g>
+
+    <!-- ============ LEFT: brand (persistent, ≤520px) ============ -->
+    <!-- mini mark -->
+    <g transform="translate(58,30) scale(0.82)">
+      <path d="M 96 6 V 76 A 28 28 0 0 1 68 104 H 24"
+            fill="none" stroke="#3ECF9A" stroke-width="17" stroke-linecap="round"/>
+      <circle cx="68" cy="76" r="19.5" fill="#F7F6F1"/>
+    </g>
+
+    <!-- outlined wordmark: BACK in paper, STOP in animated guard gradient -->
+    <g transform="translate(56,128) scale(0.52)" fill="none"
+       stroke-width="15" stroke-linecap="round" stroke-linejoin="round">
+      <g stroke="#F7F6F1">
+        <path d="M11 8 V92 M11 8 H36 A21 21 0 0 1 36 50 H11 M11 50 H42 A21 21 0 0 1 42 92 H11"/>
+        <path transform="translate(100,0)" d="M8 92 L38 8 L68 92 M20 60 H56"/>
+        <path transform="translate(204,0)" d="M64 21 A37 37 0 1 0 64 79"/>
+        <path transform="translate(302,0)" d="M12 8 V92 M62 8 L14 54 M33 41 L64 92"/>
+      </g>
+      <g stroke="url(#wmGrad)">
+        <path transform="translate(400,0)" d="M58 16 C36 5 13 14 13 31 C13 48 61 49 61 68 C61 87 34 96 11 84"/>
+        <path transform="translate(494,0)" d="M8 8 H68 M38 8 V92"/>
+        <ellipse transform="translate(594,0)" cx="40" cy="50" rx="31" ry="42"/>
+        <path transform="translate(700,0)" d="M12 8 V92 M12 8 H39 A23 23 0 0 1 39 54 H12"/>
+      </g>
+    </g>
+
+    <!-- tagline + hero metric + stack (system mono stack only) -->
+    <text x="58" y="212" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+          font-size="17" fill="#E9EDF2">Redemption insurance for FXRP.</text>
+    <text class="metric-pulse" x="58" y="244" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+          font-size="15.5" fill="#3ECF9A">&gt; 1 proof &#8594; full payout &#183; verified on-chain</text>
+    <text x="58" y="272" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace"
+          font-size="12.5" fill="#55677D">FDC &#183; FASSETS/FXRP &#183; FTSO V2 &#183; COSTON2 (114)</text>
+
+    <!-- ============ RIGHT: the claim settles (story, loop-fades) ============ -->
+    <g class="story" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
+
+      <!-- ① insured ticket -->
+      <g class="pop-ticket">
+        <rect x="600" y="56" width="190" height="58" rx="14" fill="#182433" stroke-width="2" stroke="#55677D">
+          <animate attributeName="stroke" dur="8s" repeatCount="indefinite"
+                   values="#55677D;#55677D;#F2B94B;#F2B94B" keyTimes="0;0.29;0.31;1"/>
+        </rect>
+        <text x="695" y="81" text-anchor="middle" font-size="15" fill="#F7F6F1">TICKET #4821</text>
+        <text x="695" y="102" text-anchor="middle" font-size="12" fill="#8CA0B3">5,000 XRP OWED</text>
+      </g>
+
+      <!-- deadline depletes -->
+      <rect x="600" y="130" width="190" height="6" rx="3" fill="#24303F"/>
+      <rect x="600" y="130" height="6" rx="3" fill="#F2B94B">
+        <animate attributeName="width" dur="8s" repeatCount="indefinite"
+                 values="190;190;0;0" keyTimes="0;0.06;0.30;1"/>
+      </rect>
+      <text class="default-caption" x="600" y="164" font-size="14" fill="#F2B94B">AGENT DEFAULT &#215;</text>
+
+      <!-- ② FDC attestation request -->
+      <g opacity="0">
+        <animate attributeName="opacity" dur="8s" repeatCount="indefinite"
+                 values="0;0;1;1" keyTimes="0;0.34;0.38;1"/>
+        <rect x="860" y="48" width="220" height="74" rx="14" fill="#182433" stroke="#3ECF9A" stroke-width="2"/>
+        <text x="970" y="79" text-anchor="middle" font-size="15" fill="#F7F6F1">FDC &#183; RPN</text>
+        <text x="970" y="103" text-anchor="middle" font-size="12.5" fill="#3ECF9A">requestAttestation()</text>
+      </g>
+      <!-- comet: default report → FDC -->
+      <g opacity="0">
+        <animate attributeName="opacity" dur="8s" repeatCount="indefinite"
+                 values="0;0;1;1;0;0" keyTimes="0;0.36;0.37;0.43;0.44;1"/>
+        <circle r="5" fill="#3ECF9A" filter="url(#cometBlur)">
+          <animateMotion dur="8s" repeatCount="indefinite" keyPoints="0;0;1;1" keyTimes="0;0.36;0.44;1"
+                         calcMode="linear" path="M 790 85 H 860"/>
+        </circle>
+      </g>
+
+      <!-- ③ on-chain verification -->
+      <g opacity="0">
+        <animate attributeName="opacity" dur="8s" repeatCount="indefinite"
+                 values="0;0;1;1" keyTimes="0;0.48;0.52;1"/>
+        <rect x="860" y="170" width="220" height="74" rx="14" fill="#182433" stroke="#3ECF9A" stroke-width="2"/>
+        <text x="970" y="201" text-anchor="middle" font-size="14.5" fill="#F7F6F1">IFdcVerification</text>
+        <text x="970" y="225" text-anchor="middle" font-size="12.5" fill="#3ECF9A">verify(proof)</text>
+      </g>
+      <!-- comet: proof → verifier -->
+      <g opacity="0">
+        <animate attributeName="opacity" dur="8s" repeatCount="indefinite"
+                 values="0;0;1;1;0;0" keyTimes="0;0.46;0.47;0.51;0.52;1"/>
+        <circle r="5" fill="#3ECF9A" filter="url(#cometBlur)">
+          <animateMotion dur="8s" repeatCount="indefinite" keyPoints="0;0;1;1" keyTimes="0;0.46;0.52;1"
+                         calcMode="linear" path="M 970 122 V 170"/>
+        </circle>
+      </g>
+      <!-- check badge draws -->
+      <g opacity="0">
+        <animate attributeName="opacity" dur="8s" repeatCount="indefinite"
+                 values="0;0;1;1" keyTimes="0;0.53;0.55;1"/>
+        <circle cx="1102" cy="207" r="16" fill="#0D1522" stroke="#3ECF9A" stroke-width="3"/>
+        <path d="M 1094 207 l 6 7 l 11 -13" fill="none" stroke="#3ECF9A" stroke-width="4"
+              stroke-linecap="round" stroke-linejoin="round" pathLength="100" style="stroke-dasharray: 100;">
+          <animate attributeName="stroke-dashoffset" dur="8s" repeatCount="indefinite"
+                   values="100;100;0;0" keyTimes="0;0.55;0.62;1"/>
+        </path>
+      </g>
+
+      <!-- ④ the backstop waits, then catches the payout -->
+      <!-- cradle glow breath -->
+      <g transform="translate(1128,150) scale(0.95)">
+        <path d="M 96 6 V 76 A 28 28 0 0 1 68 104 H 24"
+              fill="none" stroke="#3ECF9A" stroke-width="17" stroke-linecap="round"
+              filter="url(#breath)" opacity="0">
+          <animate attributeName="opacity" dur="8s" repeatCount="indefinite"
+                   values="0;0;0;0.45;0.2;0.5;0.5;0" keyTimes="0;0.7;0.78;0.84;0.89;0.94;0.97;1"/>
+        </path>
+        <!-- cradle draws in early: the guarantee is in place before the default -->
+        <path d="M 96 6 V 76 A 28 28 0 0 1 68 104 H 24"
+              fill="none" stroke="#3ECF9A" stroke-width="17" stroke-linecap="round"
+              pathLength="100" style="stroke-dasharray: 100;">
+          <animate attributeName="stroke-dashoffset" dur="8s" repeatCount="indefinite"
+                   values="100;100;0;0" keyTimes="0;0.04;0.16;1"/>
+        </path>
+      </g>
+
+      <!-- trajectory hint of the falling payout -->
+      <path d="M 1102 200 C 1150 190 1182 196 1191 216" fill="none" stroke="#55677D"
+            stroke-width="5" stroke-linecap="round" stroke-dasharray="0.1 16" opacity="0">
+        <animate attributeName="opacity" dur="8s" repeatCount="indefinite"
+                 values="0;0;0.9;0.9" keyTimes="0;0.60;0.64;1"/>
+      </path>
+
+      <!-- the redemption dot falls into the cradle -->
+      <g opacity="0">
+        <animate attributeName="opacity" dur="8s" repeatCount="indefinite"
+                 values="0;0;1;1" keyTimes="0;0.63;0.65;1"/>
+        <g>
+          <animateMotion dur="8s" repeatCount="indefinite" keyPoints="0;0;1;1" keyTimes="0;0.64;0.74;1"
+                         calcMode="linear" path="M 1102 200 C 1150 190 1182 196 1192.6 222.2"/>
+          <circle cx="0" cy="0" r="18.5" fill="#F7F6F1"/>
+        </g>
+      </g>
+
+      <!-- landing ripple -->
+      <circle cx="1192.6" cy="222.2" fill="none" stroke="#3ECF9A" stroke-width="4" opacity="0">
+        <animate attributeName="r" dur="8s" repeatCount="indefinite"
+                 values="24;24;60;60" keyTimes="0;0.73;0.82;1"/>
+        <animate attributeName="opacity" dur="8s" repeatCount="indefinite"
+                 values="0;0;0.5;0;0" keyTimes="0;0.73;0.75;0.82;1"/>
+      </circle>
+
+      <!-- PAID seal -->
+      <g class="seal-paid">
+        <rect x="1156" y="262" width="74" height="30" rx="15" fill="#3ECF9A"/>
+        <text x="1193" y="283" text-anchor="middle" font-size="14" font-weight="700" fill="#0D1522">PAID</text>
+      </g>
+    </g>
+
+    <!-- the floor the whole banner rests on (signature, persistent) -->
+    <rect x="0" y="312" width="1280" height="8" fill="#3ECF9A"/>
+  </g>
+</svg>
