@@ -480,29 +480,30 @@
         <text x="300" y="118" class="etxt">buyGuard + premium</text>
 
         <path d="M760 120 H872" class="edge" marker-end="url(#ar)"/>
-        <text x="778" y="108" class="etxt">price</text>
+        <text x="792" y="108" class="etxt">price</text>
 
         <path d="M615 210 V352" class="edge" marker-end="url(#ar)"/>
-        <text x="625" y="290" class="etxt">payout / premium</text>
+        <text x="625" y="288" class="etxt">payout / premium</text>
 
-        <path d="M760 150 C 810 150 830 425 872 425" class="edge" marker-end="url(#ar)"/>
-        <text x="770" y="250" class="etxt">bind ticket</text>
+        <!-- Backstop.sol -> AssetManager: bind the redemption ticket -->
+        <path d="M745 210 C 820 285 900 322 958 356" class="edge" marker-end="url(#ar)"/>
+        <text x="772" y="258" class="etxt">bind ticket</text>
 
-        <!-- keeper flow bottom -->
-        <path d="M1005 360 V220" class="edge" marker-end="url(#ar)"/>
-        <text x="1015" y="300" class="etxt">deadline read</text>
+        <!-- AssetManager -> FtsoV2: vertically aligned, clean straight connector -->
+        <path d="M1005 360 V174" class="edge" marker-end="url(#ar)"/>
+        <text x="1016" y="332" class="etxt">deadline read</text>
 
-        <path d="M1260 425 H1140 V425" class="edge"/>
-        <path d="M1160 425 H1140" class="edge" marker-end="url(#ar)"/>
+        <!-- FDC Hub -> AssetManager -->
+        <path d="M1260 425 H1134" class="edge" marker-end="url(#ar)"/>
         <text x="1150" y="412" class="etxt">agent didn't pay</text>
 
-        <!-- DA proof up to gate -->
+        <!-- DA proof up to the gate -->
         <path d="M1460 360 V214" class="edgeg" marker-end="url(#arg)"/>
         <text x="1472" y="300" class="etxtg">proof bytes</text>
 
-        <!-- gate back to Backstop -->
-        <path d="M1260 135 C 1000 30 900 30 762 100" class="edgeg" marker-end="url(#arg)"/>
-        <text x="980" y="34" class="etxtg">verify(proof) == true → PAID</text>
+        <!-- IFdcVerification -> Backstop.sol: arc over FtsoV2, verify == true -> PAID -->
+        <path d="M1460 58 C 1360 8 615 8 615 58" class="edgeg" marker-end="url(#arg)"/>
+        <text x="905" y="36" class="etxtg">verify(proof) == true → PAID</text>
       </svg>
     </div>
     <aside class="speaker-notes">Trace the green path with your finger: keeper spots the missed deadline, requests an FDC attestation, the DA Layer returns proof bytes, and <b>the contract itself</b> verifies them. Payout only fires when <b>verifyReferencedPaymentNonexistence returns true</b> — which we proved on Coston2 in 99.3s. Nothing off-chain can force a payout. Every address is resolved through the registry; the contracts are deployed and source-verified.</aside>
@@ -676,8 +677,8 @@
         </div>
       </div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:22px">
-        <!-- SWAP: replace with a QR to the Flarescan contract page or the live /integrations/verify URL once Vercel is up (assets/qr-repo.png) -->
-        <div class="qr contrast-check">SWAP:<br>QR → Flarescan<br>contract / verify</div>
+        <!-- QR -> live proof page: https://backstop.edycu.dev/integrations/verify -->
+        <div class="qr contrast-check"><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAXIAAAFyCAIAAABnRsZeAAAHnUlEQVR4nO3cvW00yRlGUVLYICaBTUH520pBCdClQ7pyBSzQxle3UG/3nOPPcP54UcaD+vz9+f4A6PwrfC4AWQF6sgLEZAWIyQoQkxUgJitATFaAmKwAMVkBYrICxGQFiMkKEJMVICYrQExWgJisADFZAWKyAsT+Wnnw6+9/fzzL13//88fv9/qxMz/nlfd76pn3WfkGZ76jU5+G0woQkxUgJitATFaAmKwAMVkBYrICxGQFiMkKMGlle23f6nTFzDXkyn533/Z33+p05p515ie5z75P0mkFiMkKEJMVICYrQExWgJisADFZAWKyAsRkBbjPynbm/ax3vPl132Nnrnvv+C282//CNacVICYrQExWgJisADFZAWKyAsRkBYjJChCTFeApK9s72rdJ3bcNveOO9tSdsqfe7/M4rQAxWQFisgLEZAWIyQoQkxUgJitATFaAmKwAMSvbG2w09911es0mlT/jtALEZAWIyQoQkxUgJitATFaAmKwAMVkBYrICPGVl+7wVpg3u/Fc109cNX/M1pxUgJitATFaAmKwAMVkBYrICxGQFiMkKEJMV4D4r21M7y31m3t66b+267/3e8TWveD3uf+Ga0woQkxUgJitATFaAmKwAMVkBYrICxGQFiMkKMGll+7w7OFc8bxs687bamTcK+1/4f04rQExWgJisADFZAWKyAsRkBYjJChCTFSAmK8Ckle3KZnFlo3lq/XnH1emKU9/RqaXsu72qayuv2WkFiMkKEJMVICYrQExWgJisADFZAWKyAsRkBXiPu2zf7Zmv15ArO8tT7/eON/vue+bX4za415xWgJisADFZAWKyAsRkBYjJChCTFSAmK0BMVoBJK9sVp/Z/M/eO+7zb+11x6h29bniv8zWnFSAmK0BMVoCYrAAxWQFisgLEZAWIyQoQkxXgKSvbU9vB5+1KTy0pZ35HK2b+3deh73eF0woQkxUgJitATFaAmKwAMVkBYrICxGQFiMkKEPv8/fn+4wc/7w7OfZ63SZ3527jj5/wa+apWOK0AMVkBYrICxGQFiMkKEJMVICYrQExWgJisAPe5y3bf/u/UCvPUPbjXj535mq+9262xr0PL4FO3LzutADFZAWKyAsRkBYjJChCTFSAmK0BMVoCYrAD3WdnOXHDOvCX31L5z5jOfMnORvOLU33VaAWKyAsRkBYjJChCTFSAmK0BMVoCYrAAxWQFin78/3x8nrGw0T20Hn/eaT90K/G6+Dn1WVrbAQ8gKEJMVICYrQExWgJisADFZAWKyAsRkBZh0l+3KCnNldzhzlXjHxeodb2A99e2f2g1/jXxV15xWgJisADFZAWKyAsRkBYjJChCTFSAmK0BMVoBJK9trM/d/+7aw+/7uin1/d99nte/O4FPr7RWnPueVZ3ZaAWKyAsRkBYjJChCTFSAmK0BMVoCYrAAxWQFin78/3x8n3HFXemqhe23mLbmn7sGduf294+95hdMKEJMVICYrQExWgJisADFZAWKyAsRkBYjJCjDpLtt3u/vz1Ab31Dt6tx3tijve3buP0woQkxUgJitATFaAmKwAMVkBYrICxGQFiMkKMOku2+fd3jpzObri1Kdxx1tyn/fb+Dr0mp1WgJisADFZAWKyAsRkBYjJChCTFSAmK0BMVoBJd9nuY6N599tMr+3b7566UXjm2vXUL9ZpBYjJChCTFSAmK0BMVoCYrAAxWQFisgLEZAWYtLI9tRx9t/2uhe78nfT1Y18j7yrex2kFiMkKEJMVICYrQExWgJisADFZAWKyAsRkBbjPXbYz7xzdt0o8ddfpqSXlqfto9z2zpWzFaQWIyQoQkxUgJitATFaAmKwAMVkBYrICxGQFmLSyPbVnXXFqv7vi1HJ036dxx3t/93kd+l3t47QCxGQFiMkKEJMVICYrQExWgJisADFZAWKyAkxa2a7s/95tZ7nvpts73nU6c6987dSreo1cM19zWgFisgLEZAWIyQoQkxUgJitATFaAmKwAMVkB7nOX7R2dWiXO3CvP3MLO3Bzv+6y+Rq7GrzmtADFZAWKyAsRkBYjJChCTFSAmK0BMVoCYrACTVrZ3XAeeWmGufBr7VqczV8Urd7ueMvP+3VOv2WkFiMkKEJMVICYrQExWgJisADFZAWKyAsRkBbjPyvZ528E7LilXzNzv7tsr73vsin139+77Bp1WgJisADFZAWKyAsRkBYjJChCTFSAmK0BMVoCnrGzvaN+dsiuet/48tQ09taL+Gnnr8wqnFSAmK0BMVoCYrAAxWQFisgLEZAWIyQoQkxUgZmU7wvN2lqfuwd23hJ65Kp75u3JaAWKyAsRkBYjJChCTFSAmK0BMVoCYrAAxWQFin78/3291Q+epfec+p9af+5y6U3amrxvesOu0AsRkBYjJChCTFSAmK0BMVoCYrAAxWQFisgLc5y7bOy4ar82863Sffe/o1G21M9/va+GZVz6NfftdpxUgJitATFaAmKwAMVkBYrICxGQFiMkKEJMVYNJdtgD/5LQCxGQFiMkKEJMVICYrQExWgJisADFZAWKyAsRkBYjJChCTFSAmK0BMVoCYrAAxWQFisgLEZAWIyQrw0fofq1vmibAm6ioAAAAASUVORK5CYII=" alt="Scan for the live on-chain proof" width="196" height="196" style="border-radius:10px;display:block"/></div>
         <div style="text-align:center">
           <div style="font-family:var(--font-mono);font-size:15px;color:var(--slate-300);letter-spacing:.1em">SCAN → SEE THE PROOF</div>
         </div>
