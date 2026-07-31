@@ -23,7 +23,7 @@
   ![Tests](https://img.shields.io/badge/tests-91_passing-3ECF9A?style=flat)
   ![Coverage](https://img.shields.io/badge/coverage-100%25-3ECF9A?style=flat)
   ![License](https://img.shields.io/badge/license-MIT-blue?style=flat)
-  [![CI](https://github.com/edycutjong/backstop/actions/workflows/ci.yml/badge.svg)](https://github.com/edycutjong/backstop/actions/workflows/ci.yml)
+  [![CI/CD](https://github.com/edycutjong/backstop/actions/workflows/ci.yml/badge.svg)](https://github.com/edycutjong/backstop/actions/workflows/ci.yml)
   [![Release](https://img.shields.io/github/v/release/edycutjong/backstop?style=flat&logo=github&label=release)](https://github.com/edycutjong/backstop/releases)
 
 </div>
