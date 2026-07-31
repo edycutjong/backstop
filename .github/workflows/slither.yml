@@ -29,7 +29,7 @@ jobs:
           slither-args: --filter-paths "dependencies/" --exclude-dependencies
           sarif: results.sarif
       - name: Upload SARIF
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4.37.3
         if: always() && steps.slither.outputs.sarif != ''
         with:
           sarif_file: ${{ steps.slither.outputs.sarif }}
