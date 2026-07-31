@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/edycutjong/backstop/compare/v1.0.0...v1.1.0) (2026-07-31)
+
+
+### Features
+
+* **ci:** deploy web to Vercel production on each new release ([89e4e68](https://github.com/edycutjong/backstop/commit/89e4e6817fbc1b1b55fa930281240002e0872911))
+
 # 1.0.0 (2026-07-31)
 
 
