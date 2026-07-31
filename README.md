@@ -66,7 +66,7 @@ Six engine-class Flare methods, wired in code and proven on Coston2:
 
 > **Take Flare out and you'd need four separate systems**: a cross-chain XRPL light client, a
 > decentralized "payment-did-not-happen" attestation network, a price oracle, and a canonical FXRP
-> redemption registry. Backstop is ~600 lines of Solidity *because* Flare enshrines all four — and
+> redemption registry. Backstop is ~500 lines of Solidity *because* Flare enshrines all four — and
 > FDC's non-existence proof is something almost no other chain exposes natively.
 
 ## 🏗️ Architecture
@@ -175,7 +175,8 @@ cd web && npm install && npm run dev  # http://localhost:3000
 ## ⚖️ Honest limitations
 
 - **Pool solvency under correlated defaults** — many agents failing at once can under-fund the pool;
-  mitigated by per-agent exposure caps (enforced on-chain, invariant-tested), not eliminated.
+  mitigated by a per-agent exposure cap (invariant-tested) **and** a global solvency cap (total coverage
+  ≤ 80% of the pool's live USD value, FTSO-priced), both enforced on-chain — bounded, not eliminated.
 - **Payout latency = FDC round time** — make-whole is fast but bounded by the attestation voting
   round (~99 s measured); we surface the wait in the UI rather than hide it.
 - **Linear premium model** (`base + k·σ`) — a deliberate MVP simplification, flagged in code.
@@ -183,7 +184,7 @@ cd web && npm install && npm run dev  # http://localhost:3000
 ## 🗺️ Roadmap
 
 - FBTC / FDOGE coverage — the same RPN machinery generalizes to every FAsset.
-- Risk-tranched pools (senior / junior) + a global utilization cap.
+- Risk-tranched pools (senior / junior) on top of the existing solvency engine.
 - Mainnet pilot with a capped underwriting pool.
 
 ## 📄 License

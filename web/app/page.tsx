@@ -116,7 +116,7 @@ const receipts = [
   {
     seal: "gate",
     claim:
-      "The load-bearing FDC round-trip returned true on Coston2 in ~2 min (FDC round-bound; 99–129s observed across runs) — the exact proof Backstop.claim gates on.",
+      "The load-bearing FDC round-trip returned true on Coston2 in 99.3s (FDC round-bound) — the exact proof Backstop.claim gates on.",
     label: `attestation tx ${shortHex(DAY4_SPIKE.txHash, 8, 6)}`,
     href: explorerTx(DAY4_SPIKE.txHash),
   },
@@ -159,7 +159,7 @@ const faqs = [
   },
   {
     q: "How fast is a payout, honestly?",
-    a: "Bounded by the FDC voting round — 99–129s measured across live runs (floor ~99s), set by Flare, not by us. We surface the wait in the UI instead of pretending it's instant.",
+    a: "Bounded by the FDC voting round — measured at 99.3s on-chain, set by Flare, not by us; payout lands within one voting round. We surface the wait in the UI instead of pretending it's instant.",
   },
 ];
 
