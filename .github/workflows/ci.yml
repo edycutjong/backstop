@@ -84,6 +84,8 @@ jobs:
         run: npm run typecheck
       - name: Production build
         run: npm run build
+      - name: Unit tests (Vitest)
+        run: npm run test:unit
 
   # ── Web · E2E (Playwright against the real read-only app) ──
   web-e2e:
