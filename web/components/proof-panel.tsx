@@ -67,11 +67,12 @@ export function ProofPanel() {
         ) : (
           <div className="space-y-3">
             <p className="font-mono text-xs leading-relaxed text-slate-300">
-              No end-to-end claim has been executed through the deployed
-              contract yet. Below is the{" "}
+              A real end-to-end claim{" "}
+              <span className="text-guard-400">has</span> executed on-chain
+              (guard #1 PAID) — if it isn&apos;t showing above, the live log
+              query is momentarily unavailable. Below is the{" "}
               <span className="text-amber-300">Day-4 go/no-go gate</span> — the
-              load-bearing FDC leg run for real on Coston2 (a spike, not a claim
-              through Backstop):
+              load-bearing FDC leg, run for real on Coston2:
             </p>
             <div className="rounded-xl border border-ink-line bg-ink-950 p-4">
               <Field k="Attestation" v={DAY4_SPIKE.attestationType} />

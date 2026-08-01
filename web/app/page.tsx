@@ -10,10 +10,10 @@
 // floor-bar resting under the hero. Swiss/data-room serious. No gradients-on-
 // white, no stock imagery — the "media" is real on-chain proof.
 //
-// HONESTY: no end-to-end claim has executed through the deployed Backstop yet.
-// Every proof shown is a real, verifiable artifact (the Day-4 FDC gate spike, the
-// verified deploys, the test suite, the live pool reads) and is labelled as such.
-// No fabricated users, testimonials, or usage metrics.
+// HONESTY: a real end-to-end claim HAS executed on-chain (guard #1 PAID, claim tx
+// 0xd4c7be56…). Every proof shown is a real, verifiable artifact (that claim, the
+// Day-4 FDC gate spike, the verified deploys, the test suite, the live pool reads)
+// and is labelled as such. No fabricated users, testimonials, or usage metrics.
 //
 // 11 essential elements are annotated inline: [E1]…[E11].
 // ─────────────────────────────────────────────────────────────────────────────
@@ -25,7 +25,7 @@ import { CountUp } from "@/components/count-up";
 import { Reveal } from "@/components/reveal";
 import { Button } from "@/components/ui/button";
 import { Card, CardBody } from "@/components/ui/card";
-import { DAY4_SPIKE } from "@/lib/seed-proof";
+import { DAY4_SPIKE, REAL_CLAIM } from "@/lib/seed-proof";
 import {
   BACKSTOP_ADDRESS,
   BACKSTOP_POOL_ADDRESS,
@@ -114,6 +114,13 @@ const engine = [
 // The chain vouches for us, not fabricated users. Each links to public proof.
 const receipts = [
   {
+    seal: "paid",
+    claim:
+      "A real FXRP redemption defaulted on Coston2 and Backstop paid the redeemer make-whole — guard #1 PAID, 170.08 C2FLR, end-to-end on-chain. Not synthetic.",
+    label: `claim tx ${shortHex(REAL_CLAIM.claimTx, 8, 6)}`,
+    href: explorerTx(REAL_CLAIM.claimTx),
+  },
+  {
     seal: "gate",
     claim:
       "The load-bearing FDC round-trip returned true on Coston2 in 99.3s (FDC round-bound) — the exact proof Backstop.claim gates on.",
@@ -139,11 +146,11 @@ const receipts = [
 const faqs = [
   {
     q: "Is this actually live, or a mockup?",
-    a: "Live. Both contracts are deployed and source-verified on Coston2, and this site reads their state on-chain with no wallet. The FDC non-payment proof has been exercised for real (tx below).",
+    a: "Live. Both contracts are deployed and source-verified on Coston2, this site reads their state on-chain with no wallet, and a full end-to-end claim has already paid out on-chain (guard #1 PAID, tx below).",
   },
   {
     q: "Has an end-to-end claim run through the deployed contract yet?",
-    a: "Not yet. What is proven today is the load-bearing leg — the FDC ReferencedPaymentNonexistence round-trip returning true on Coston2 in 99.3s, plus the deployed contracts and 91 tests at 100% unit coverage. The verify page shows a real Claimed event automatically the instant one occurs.",
+    a: "Yes. A real FXRP redemption defaulted on Coston2, the keeper built the FDC ReferencedPaymentNonexistence proof from the live redemption ticket, and Backstop.claim paid the redeemer make-whole — guard #1 PAID, 170.08 C2FLR (claim tx 0xd4c7be56…). Not synthetic: redeem → buyGuard → default → claim → payout, every leg on-chain.",
   },
   {
     q: "What actually triggers a payout?",
@@ -414,7 +421,7 @@ export default function Home() {
           <span className="text-mist-100">claim path is permissionless</span> —
           the keeper is a convenience, not a trust assumption. An autonomous
           watcher requests the proof the moment a deadline breaches, but the
-          redeemer or anyone can submit it. ~600 lines of Solidity, because
+          redeemer or anyone can submit it. ~500 lines of Solidity, because
           Flare enshrines the hard parts.
         </p>
       </Reveal>
@@ -426,10 +433,10 @@ export default function Home() {
           Don&apos;t take our word for it — verify it
         </h2>
         <p className="mt-2 max-w-2xl font-mono text-sm leading-relaxed text-slate-300">
-          No user testimonials, because no user has filed a claim through the
-          deployed contract yet. Instead, the receipts the chain will vouch for:
+          No user testimonials — just what the chain vouches for, including a
+          real end-to-end claim that already paid out on-chain:
         </p>
-        <div className="mt-6 grid gap-4 md:grid-cols-3">
+        <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {receipts.map((r, i) => (
             <Reveal key={r.label} delay={i * 70} className="min-w-0">
               <a
