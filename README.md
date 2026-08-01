@@ -21,8 +21,8 @@
   ![Foundry](https://img.shields.io/badge/Foundry-forge-red?style=flat)
   ![Next.js](https://img.shields.io/badge/Next.js-App_Router-black?style=flat&logo=next.js)
   ![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?style=flat&logo=typescript&logoColor=white)
-  ![Tests](https://img.shields.io/badge/tests-91_passing-3ECF9A?style=flat)
-  ![Coverage](https://img.shields.io/badge/coverage-100%25-3ECF9A?style=flat)
+  ![Tests](https://img.shields.io/badge/tests-94_passing-3ECF9A?style=flat)
+  ![Coverage](https://img.shields.io/badge/lines-100%25-3ECF9A?style=flat)
   ![License](https://img.shields.io/badge/license-MIT-blue?style=flat)
   [![CI/CD](https://github.com/edycutjong/backstop/actions/workflows/ci.yml/badge.svg)](https://github.com/edycutjong/backstop/actions/workflows/ci.yml)
   [![Release](https://img.shields.io/github/v/release/edycutjong/backstop?style=flat&logo=github&label=release)](https://github.com/edycutjong/backstop/releases)
@@ -66,7 +66,7 @@ Six engine-class Flare methods, wired in code and proven on Coston2:
 
 > **Take Flare out and you'd need four separate systems**: a cross-chain XRPL light client, a
 > decentralized "payment-did-not-happen" attestation network, a price oracle, and a canonical FXRP
-> redemption registry. Backstop is ~500 lines of Solidity *because* Flare enshrines all four — and
+> redemption registry. Backstop is ~550 lines of Solidity *because* Flare enshrines all four — and
 > FDC's non-existence proof is something almost no other chain exposes natively.
 
 ## 🏗️ Architecture
@@ -139,6 +139,10 @@ non-payment via FDC → `claim` pays the redeemer make-whole:
 
 Both source-verified on Blockscout. Deploy script: [`script/Deploy.s.sol`](script/Deploy.s.sol).
 
+> **Note:** the deployed bytecode is the reviewed baseline that the live end-to-end claim ran against.
+> Repo `HEAD` additionally carries a post-audit hardening pass (reentrancy guards, a zero-address
+> check, an ownership event) that clears all static-analysis findings; it ships on the next deploy.
+
 ## 🧩 Components
 
 | Layer | Where | What |
@@ -150,13 +154,15 @@ Both source-verified on Blockscout. Deploy script: [`script/Deploy.s.sol`](scrip
 
 ## 🧪 Testing
 
-**87 unit tests · 100% coverage** (lines / statements / branches / functions) across all four
-contracts, **plus 4 live-Coston2 fork integration tests** ([`test/ForkCoston2.t.sol`](test/ForkCoston2.t.sol))
-against the real registry, FtsoV2, and AssetManager. The fork tests skip automatically when no
-`COSTON2_RPC_URL` is set, so offline CI stays green (**91 tests** with a fork).
+**90 unit tests · 100% line / statement / function coverage** across all four contracts (branch
+coverage 98.7% — the one uncovered branch is a reentrancy-guard revert that Foundry can't credit
+through the nested re-entry call; the guard itself is exercised by a dedicated test), **plus 4
+live-Coston2 fork integration tests** ([`test/ForkCoston2.t.sol`](test/ForkCoston2.t.sol)) against the
+real registry, FtsoV2, and AssetManager. The fork tests skip automatically when no `COSTON2_RPC_URL`
+is set, so offline CI stays green (**94 tests** with a fork).
 
 ```bash
-forge test                 # 87 offline · 91 with a Coston2 RPC
+forge test                 # 90 offline · 94 with a Coston2 RPC
 forge coverage --no-match-coverage "(script|test)" --summary
 ```
 

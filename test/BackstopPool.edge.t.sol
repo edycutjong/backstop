@@ -21,6 +21,29 @@ contract BpRejector {
     }
 }
 
+/// @notice LP that RE-ENTERS withdraw when it receives its FLR, to exercise the
+///         nonReentrant guard's revert branch.
+contract BpReentrant {
+    BackstopPool internal pool;
+    uint256 internal myShares;
+
+    constructor(BackstopPool p) {
+        pool = p;
+    }
+
+    function doDeposit() external payable {
+        myShares = pool.deposit{value: msg.value}();
+    }
+
+    function doWithdraw() external {
+        pool.withdraw(myShares);
+    }
+
+    receive() external payable {
+        pool.withdraw(1); // re-entry hits `require(_entered == 1)` → "BackstopPool: reentrant"
+    }
+}
+
 /// @notice Edge/branch coverage for BackstopPool — every revert guard, both
 ///         sharePrice branches, and the receive() funding path. Complements the
 ///         happy-path unit suite in BackstopPool.t.sol.
@@ -162,5 +185,23 @@ contract BackstopPoolEdgeTest is Test {
         BpRejector sink = new BpRejector(); // receive() reverts
         vm.expectRevert(bytes("BackstopPool: payout failed"));
         pool.payout(address(sink), 1 ether);
+    }
+
+    function test_payout_rejectsZeroAddress() public {
+        // This test contract is the wired backstop, so it can call payout directly.
+        vm.expectRevert(bytes("BackstopPool: zero payout"));
+        pool.payout(address(0), 1 ether);
+    }
+
+    // ── nonReentrant guard ──────────────────────────────────────────────────
+
+    function test_withdraw_nonReentrant() public {
+        BpReentrant lp = new BpReentrant(pool);
+        vm.deal(address(lp), 5 ether);
+        lp.doDeposit{value: 4 ether}();
+        // Withdrawal sends FLR to lp, whose receive() re-enters withdraw → the inner
+        // call trips the nonReentrant guard, so the outer transfer fails.
+        vm.expectRevert(bytes("BackstopPool: withdraw xfer failed"));
+        lp.doWithdraw();
     }
 }

@@ -74,6 +74,30 @@ contract BsRejector {
     }
 }
 
+/// @dev A redeemer that RE-ENTERS buyGuard when it receives the refund, to exercise
+///      the nonReentrant guard's revert branch.
+contract BsReentrant {
+    Backstop internal bs;
+    bool public reentryRejected;
+
+    constructor(Backstop _bs) {
+        bs = _bs;
+    }
+
+    function buy(uint256 reqId, uint256 cov) external payable returns (uint256) {
+        return bs.buyGuard{value: msg.value}(reqId, cov);
+    }
+
+    receive() external payable {
+        // Re-enter buyGuard during the refund. The nonReentrant guard rejects it; we
+        // catch so the refund succeeds and the outer buyGuard completes normally.
+        try bs.buyGuard{value: 0}(1, 1) returns (uint256) {}
+        catch {
+            reentryRejected = true;
+        }
+    }
+}
+
 // ── Tests ─────────────────────────────────────────────────────────────────────────────
 
 contract BackstopTest is Test {
@@ -257,6 +281,18 @@ contract BackstopTest is Test {
         vm.deal(address(rej), premium + 1 ether);
         vm.expectRevert(bytes("Backstop: refund failed"));
         rej.buy{value: premium + 1 ether}(1, 100e18);
+    }
+
+    function test_buyGuard_nonReentrant() public {
+        BsReentrant att = new BsReentrant(backstop);
+        _setRedemption(RedemptionRequestInfo.Status.ACTIVE, address(att));
+        uint256 premium = backstop.quotePremiumFlr(100e18);
+        vm.deal(address(att), premium + 1 ether);
+        // Overpay so buyGuard refunds → att.receive() re-enters buyGuard; the nonReentrant
+        // guard rejects the re-entry (caught), so the outer buyGuard still succeeds.
+        att.buy{value: premium + 1 ether}(1, 100e18);
+        assertTrue(att.reentryRejected(), "re-entry should have been rejected");
+        assertEq(backstop.nextGuardId(), 2); // the outer guard was created
     }
 
     function test_buyGuard_revertsNotActive() public {

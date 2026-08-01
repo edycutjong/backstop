@@ -79,11 +79,12 @@ forge test --gas-report --match-path test/Backstop.t.sol
 
 ## Test suite
 
-**87 unit tests · 100% coverage** (lines / statements / branches / functions) across all four
-contracts, **+ 4 live-Coston2 fork integration tests** (real registry / FTSO / AssetManager).
+**90 unit tests · 100% line/statement/function coverage** (branch 98.7% — the one uncovered branch
+is a reentrancy-guard revert, exercised by a dedicated test but uncreditable through the nested call)
+across all four contracts, **+ 4 live-Coston2 fork integration tests** (real registry / FTSO / AssetManager).
 
 ```bash
-forge test           # 87 offline; 91 with a Coston2 RPC in .env (fork tests skip if unset)
+forge test           # 90 offline; 94 with a Coston2 RPC in .env (fork tests skip if unset)
 forge coverage --no-match-coverage "(script|test)" --summary
 ```
 
