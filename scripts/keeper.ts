@@ -465,6 +465,10 @@ async function processClaim(guardId: bigint, guard: Guard) {
     abi: backstopAbi,
     functionName: "claim",
     args: [guardId, proof],
+    // Explicit, generous limit: the on-chain FDC Merkle verification + nonReentrant
+    // guards make auto-estimation flaky (it can land just under and OOG). ~220k is
+    // the real cost; 700k is a safe ceiling.
+    gas: 700_000n,
   });
   log(C.green(`  claim tx submitted: ${claimTx}`));
   line("Flarescan", `https://coston2.testnet.flarescan.com/tx/${claimTx}`);

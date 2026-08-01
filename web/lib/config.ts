@@ -13,11 +13,11 @@ export const EXPLORER_URL =
   "https://coston2-explorer.flare.network";
 
 export const BACKSTOP_ADDRESS = (process.env.NEXT_PUBLIC_BACKSTOP_ADDRESS ??
-  "0x38EB571B43C6eC03e37c8fC9514640D9d743DDca") as `0x${string}`;
+  "0xe7DFfa49EC57f5a9ca349C0F9a170950F052E708") as `0x${string}`;
 
 export const BACKSTOP_POOL_ADDRESS = (process.env
   .NEXT_PUBLIC_BACKSTOP_POOL_ADDRESS ??
-  "0xc18BDf574Ce129aa9dD7DCc80810CceE61200045") as `0x${string}`;
+  "0x9c1e0f1318141B7dA85207d731157D4853918A9A") as `0x${string}`;
 
 // Empty in the provided env — read-only views must work without it and
 // wallet-gated actions fall back to an injected wallet (MetaMask).
@@ -27,7 +27,7 @@ export const WALLETCONNECT_PROJECT_ID =
 // Block the Backstop contract was deployed at (Coston2). Used to scope the
 // Claimed-event log query so we don't scan the whole chain.
 export const DEPLOY_BLOCK = BigInt(
-  process.env.NEXT_PUBLIC_DEPLOY_BLOCK ?? "33387376",
+  process.env.NEXT_PUBLIC_DEPLOY_BLOCK ?? "33492108",
 );
 
 export function explorerTx(hash: string) {

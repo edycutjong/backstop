@@ -26,7 +26,7 @@ npm run spike:all -- --ref "$REF" --dest "r4uKJRy9mjxGHw1yzS1SrtaKCUwT66MCcP" \
   --drops 1000000 --min-block 19447531 --deadline-block 19447581 --deadline-ts 1785278621
 ```
 
-## Real end-to-end claim (live on-chain, 2026-07-31)
+## Real end-to-end claim (live on-chain, 2026-08-01)
 
 The complete product loop, proven against a **real FAssets redemption default** on Coston2 — not a
 synthetic reference: faucet FXRP → `redeem` → `buyGuard` → the assigned agent misses the payment
@@ -35,15 +35,15 @@ deadline → the keeper builds the FDC `ReferencedPaymentNonexistence` proof fro
 
 | Step | Tx | Result |
 |---|---|---|
-| `redeem` 1 lot (10 FTestXRP) | [`0x2b1ac5ee…`](https://coston2-explorer.flare.network/tx/0x2b1ac5eecb020c51720768e8996b3e3681163ff28c282ec35c20772014c27ccc) | redemptionRequestId **42456370**, agent `0x165c…E028` |
-| `buyGuard` (bind + premium) | [`0x1207a9ed…`](https://coston2-explorer.flare.network/tx/0x1207a9eddb4830c55ee7cb7f04ebdabe811878d9c4edcc7a4ff2f27f48ca678b) | guard **#1**, coverage $1.08 |
-| FDC `requestAttestation` (RPN) | [`0xef3206b0…`](https://coston2-explorer.flare.network/tx/0xef3206b0bcbe7b6d7b2d389cbcbd4c9c41046755466156af26444a3173a91f47) | voting round **1412120**, verifier **VALID** |
-| **`claim` → `Claimed`** | [`0xd4c7be56…`](https://coston2-explorer.flare.network/tx/0xd4c7be5695886de05fb05912e7a0e1f21d06e049661a47322d3f0d53befb43f0) | guard #1 **PAID**, **170.08 C2FLR** paid to the redeemer |
+| `redeem` 1 lot (10 FTestXRP) | [`0x65a13293…`](https://coston2-explorer.flare.network/tx/0x65a1329342f145ea02b18163d482ef54000680121031dccf747043f02b22b052) | redemptionRequestId **42481292**, agent `0xd5dE…2D64` |
+| `buyGuard` (bind + premium) | [`0x92466808…`](https://coston2-explorer.flare.network/tx/0x92466808c5b989651640ae487e744149b05bb14bae48049cc616d91a43d3a7c8) | guard **#1**, coverage $0.70 |
+| FDC `requestAttestation` (RPN) | [`0xebfdbcc7…`](https://coston2-explorer.flare.network/tx/0xebfdbcc7ee5b5edfabbd81998f73b106ea181fb1b33655244b8e59d1490c6340) | voting round **1412464**, verifier **VALID** |
+| **`claim` → `Claimed`** | [`0x5fde024f…`](https://coston2-explorer.flare.network/tx/0x5fde024fbad3db5f678f06b0a0cfa4f99a7f5c42fb5ecb250840f21fe4713afe) | guard #1 **PAID**, **111.55 C2FLR** paid to the redeemer |
 
 The keeper used its **primary** path: the RPN request window (`[firstUnderlyingBlock,
 lastUnderlyingBlock]`, destination-address hash, payment reference, amount) was reconstructed
 directly from the on-chain redemption ticket, so the non-existence assertion is bound to the exact
-payment the agent failed to make — nothing synthetic. On-chain `claim` cost **204,976 gas** (incl.
+payment the agent failed to make — nothing synthetic. On-chain `claim` cost **212,908 gas** (incl.
 the FDC proof verification).
 
 **Reproduce** (funded wallet in `.env`, ≥ 1 lot of faucet FXRP):
@@ -68,7 +68,7 @@ From `forge test --gas-report` (unit harness). `p50` = median, `max` = worst cas
 > **Honest caveat:** these are measured against **mock Flare contracts** in the unit harness, so
 > `buyGuard`/`claim` understate real Coston2 gas — the live `FtsoV2.getFeedById` and
 > `IAssetManager` reads add overhead not present in the mocks. The exact on-chain gas is now measured
-> in the **live end-to-end claim above** — real `claim` cost **204,976 gas** on Coston2 (incl. the FDC
+> in the **live end-to-end claim above** — real `claim` cost **212,908 gas** on Coston2 (incl. the FDC
 > proof verification the mocks omit). Structural cost ranking holds: both `claim` and `buyGuard` do
 > real FTSO / AssetManager reads on-chain.
 
@@ -90,5 +90,5 @@ forge coverage --no-match-coverage "(script|test)" --summary
 
 ## Deployed (verified source, Coston2)
 
-- Backstop: [`0x38EB571B43C6eC03e37c8fC9514640D9d743DDca`](https://coston2-explorer.flare.network/address/0x38EB571B43C6eC03e37c8fC9514640D9d743DDca)
-- BackstopPool: [`0xc18BDf574Ce129aa9dD7DCc80810CceE61200045`](https://coston2-explorer.flare.network/address/0xc18BDf574Ce129aa9dD7DCc80810CceE61200045)
+- Backstop: [`0xe7DFfa49EC57f5a9ca349C0F9a170950F052E708`](https://coston2-explorer.flare.network/address/0xe7DFfa49EC57f5a9ca349C0F9a170950F052E708)
+- BackstopPool: [`0x9c1e0f1318141B7dA85207d731157D4853918A9A`](https://coston2-explorer.flare.network/address/0x9c1e0f1318141B7dA85207d731157D4853918A9A)

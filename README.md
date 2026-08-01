@@ -11,7 +11,7 @@
   [![Pitch Deck](https://img.shields.io/badge/Pitch_Deck-View-f59e0b?style=for-the-badge&labelColor=0F0F0F)](https://backstop.edycu.dev/pitch)
   [![YouTube Demo](https://img.shields.io/badge/YouTube-Watch_Demo-FF0000?style=for-the-badge&labelColor=0F0F0F&logo=youtube&logoColor=white)](https://youtu.be/4QMxKJnWcSE)
   [![FDC Gate PASSED](https://img.shields.io/badge/FDC_Gate-PASSED_·_99.3s-3ECF9A?style=for-the-badge&labelColor=0F0F0F)](https://coston2-explorer.flare.network/tx/0x5774a7631bdcfcf4d0bc90c25a3ce2c08664451213c617450d73b3a8149c540a)
-  [![Deployed on Coston2](https://img.shields.io/badge/Coston2-Deployed_·_Verified-e62058?style=for-the-badge&labelColor=0F0F0F)](https://coston2-explorer.flare.network/address/0x38EB571B43C6eC03e37c8fC9514640D9d743DDca)
+  [![Deployed on Coston2](https://img.shields.io/badge/Coston2-Deployed_·_Verified-e62058?style=for-the-badge&labelColor=0F0F0F)](https://coston2-explorer.flare.network/address/0xe7DFfa49EC57f5a9ca349C0F9a170950F052E708)
   [![Flare Summer Signal](https://img.shields.io/badge/Flare_Summer_Signal-Bounty_1_·_FAssets-8b5cf6?style=for-the-badge&labelColor=0F0F0F)](https://dorahacks.io/hackathon/flaresummersignal)
   [![DoraHacks BUIDL](https://img.shields.io/badge/DoraHacks-View_BUIDL-6E4AED?style=for-the-badge&labelColor=0F0F0F)](https://dorahacks.io/buidl/47366)
 
@@ -122,26 +122,23 @@ Beyond the isolated FDC gate, the **entire product loop ran live on Coston2 agai
 redemption default** — `redeem` → `buyGuard` → the assigned agent misses the deadline → keeper proves
 non-payment via FDC → `claim` pays the redeemer make-whole:
 
-> **✅ Guard #1 PAID (2026-07-31).** Real ticket `redemptionRequestId 42456370` (agent `0x165c…E028`).
+> **✅ Guard #1 PAID (2026-08-01).** Real ticket `redemptionRequestId 42481292` (agent `0xd5dE…2D64`).
 > The keeper reconstructed the `ReferencedPaymentNonexistence` window directly from the live
 > `redemptionRequestInfo` — its **primary** path, not the synthetic fallback — and `Backstop.claim`
-> paid **170.08 C2FLR** to the redeemer. Claim tx
-> [`0xd4c7be56…`](https://coston2-explorer.flare.network/tx/0xd4c7be5695886de05fb05912e7a0e1f21d06e049661a47322d3f0d53befb43f0)
-> (block 33481588). Full tx trail + one-command reproduce (`npm run route-b`):
+> paid **111.55 C2FLR** to the redeemer. Claim tx
+> [`0x5fde024f…`](https://coston2-explorer.flare.network/tx/0x5fde024fbad3db5f678f06b0a0cfa4f99a7f5c42fb5ecb250840f21fe4713afe)
+> (block 33493034). Full tx trail + one-command reproduce (`npm run route-b`):
 > [`DEMO.md`](DEMO.md) · [`scripts/route-b.ts`](scripts/route-b.ts).
 
 ## 🚀 Deployed on Coston2 (chain 114) — verified source
 
 | Contract | Address |
 |---|---|
-| `Backstop` | [`0x38EB571B43C6eC03e37c8fC9514640D9d743DDca`](https://coston2-explorer.flare.network/address/0x38EB571B43C6eC03e37c8fC9514640D9d743DDca) |
-| `BackstopPool` | [`0xc18BDf574Ce129aa9dD7DCc80810CceE61200045`](https://coston2-explorer.flare.network/address/0xc18BDf574Ce129aa9dD7DCc80810CceE61200045) |
+| `Backstop` | [`0xe7DFfa49EC57f5a9ca349C0F9a170950F052E708`](https://coston2-explorer.flare.network/address/0xe7DFfa49EC57f5a9ca349C0F9a170950F052E708) |
+| `BackstopPool` | [`0x9c1e0f1318141B7dA85207d731157D4853918A9A`](https://coston2-explorer.flare.network/address/0x9c1e0f1318141B7dA85207d731157D4853918A9A) |
 
-Both source-verified on Blockscout. Deploy script: [`script/Deploy.s.sol`](script/Deploy.s.sol).
-
-> **Note:** the deployed bytecode is the reviewed baseline that the live end-to-end claim ran against.
-> Repo `HEAD` additionally carries a post-audit hardening pass (reentrancy guards, a zero-address
-> check, an ownership event) that clears all static-analysis findings; it ships on the next deploy.
+Both source-verified on Blockscout — the exact repo source, including the reentrancy guards and
+zero-address checks (Slither: 0 findings). Deploy script: [`script/Deploy.s.sol`](script/Deploy.s.sol).
 
 ## 🧩 Components
 

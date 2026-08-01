@@ -11,7 +11,7 @@
 // white, no stock imagery — the "media" is real on-chain proof.
 //
 // HONESTY: a real end-to-end claim HAS executed on-chain (guard #1 PAID, claim tx
-// 0xd4c7be56…). Every proof shown is a real, verifiable artifact (that claim, the
+// 0x5fde024f…). Every proof shown is a real, verifiable artifact (that claim, the
 // Day-4 FDC gate spike, the verified deploys, the test suite, the live pool reads)
 // and is labelled as such. No fabricated users, testimonials, or usage metrics.
 //
@@ -116,7 +116,7 @@ const receipts = [
   {
     seal: "paid",
     claim:
-      "A real FXRP redemption defaulted on Coston2 and Backstop paid the redeemer make-whole — guard #1 PAID, 170.08 C2FLR, end-to-end on-chain. Not synthetic.",
+      "A real FXRP redemption defaulted on Coston2 and Backstop paid the redeemer make-whole — guard #1 PAID, 111.55 C2FLR, end-to-end on-chain. Not synthetic.",
     label: `claim tx ${shortHex(REAL_CLAIM.claimTx, 8, 6)}`,
     href: explorerTx(REAL_CLAIM.claimTx),
   },
@@ -150,7 +150,7 @@ const faqs = [
   },
   {
     q: "Has an end-to-end claim run through the deployed contract yet?",
-    a: "Yes. A real FXRP redemption defaulted on Coston2, the keeper built the FDC ReferencedPaymentNonexistence proof from the live redemption ticket, and Backstop.claim paid the redeemer make-whole — guard #1 PAID, 170.08 C2FLR (claim tx 0xd4c7be56…). Not synthetic: redeem → buyGuard → default → claim → payout, every leg on-chain.",
+    a: "Yes. A real FXRP redemption defaulted on Coston2, the keeper built the FDC ReferencedPaymentNonexistence proof from the live redemption ticket, and Backstop.claim paid the redeemer make-whole — guard #1 PAID, 111.55 C2FLR (claim tx 0x5fde024f…). Not synthetic: redeem → buyGuard → default → claim → payout, every leg on-chain.",
   },
   {
     q: "What actually triggers a payout?",
