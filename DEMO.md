@@ -53,6 +53,22 @@ npm run route-b        # fund pool → redeem 1 lot → buyGuard on the real tic
 npm run keeper:once    # builds the real RPN proof and fires Backstop.claim
 ```
 
+## LP underwriting cycle (live on-chain, 2026-08-01)
+
+The *other* side of the market: underwriters deposit FLR, earn guard premiums, and can exit anytime.
+Proven end-to-end on the deployed pool with an independent LP account (#2):
+
+| Step | Tx | Result |
+|---|---|---|
+| LP `deposit(20 C2FLR)` | [`0xc19b8a8e…`](https://coston2-explorer.flare.network/tx/0xc19b8a8e5fb1b778c9f5c19da2ea815a9a626739f5dd007ae58bcf3176bdd214) | 64.88 shares minted (proportional) |
+| premium accrues — `pool.fund()` (the exact path `buyGuard` routes premiums through) | [`0x903be601…`](https://coston2-explorer.flare.network/tx/0x903be6019945940632cc350bc10591584241b2fb1871ec7516df46a445457bd7) | pool value ↑ → share price ↑ |
+| LP `withdraw(all shares)` | [`0x7bf376ec…`](https://coston2-explorer.flare.network/tx/0x7bf376ecaa7594e0c867435222ba421e2e0e4c5dd9e9090100429cb2e32fac4c) | **+0.70 C2FLR yield** — exits with more than deposited |
+
+Deposit mints proportional shares, a premium raises the share price, and withdraw burns shares for
+the proportional pot — so underwriters earn the premiums of every guard whose agent paid on time.
+The mirror risk (an LP diluted by a payout) is exactly what the pool absorbed during the claim above
+— both directions are real, on-chain.
+
 ## Gas per core operation
 
 From `forge test --gas-report` (unit harness). `p50` = median, `max` = worst case observed.
