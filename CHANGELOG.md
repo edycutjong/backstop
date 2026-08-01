@@ -1,3 +1,10 @@
+## [1.7.3](https://github.com/edycutjong/backstop/compare/v1.7.2...v1.7.3) (2026-08-01)
+
+
+### Bug Fixes
+
+* **web:** pitch deck — new contract refs (94 tests, 0xe7DF…) + liquid animated background ([a2262bf](https://github.com/edycutjong/backstop/commit/a2262bfd63cd14f8b07a35234ff82055bcf886ea))
+
 ## [1.7.2](https://github.com/edycutjong/backstop/compare/v1.7.1...v1.7.2) (2026-08-01)
 
 
