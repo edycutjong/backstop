@@ -14,7 +14,7 @@
     Cmd/Ctrl+P → "Save as PDF" → Landscape → 1 slide per page, backgrounds ON.
   STATE (2026-07-29): DONE + PROVEN. Day-4 FDC gate PASSED on Coston2
     (verifyReferencedPaymentNonexistence = true in 99.3s, round 1409442,
-    tx 0x5774a763…9c540a). Contracts deployed + source-verified. 91 tests · 100% cov.
+    tx 0x5774a763…9c540a). Contracts deployed + source-verified. 94 tests · 100% cov.
     The demo slide embeds the REAL /integrations/verify screenshot (base64).
     Only two honest TBDs remain: live demo URL (Vercel) + an end-to-end Claimed
     event (pending FXRP) — both labelled on the honest-status slide.
@@ -72,9 +72,24 @@
 
   /* ═══════════ STAGE — fixed 1920×1080, scaled to viewport, never stacks ═══════════ */
   #stage{position:fixed;top:50%;left:50%;width:1920px;height:1080px;transform-origin:center center}
-  .slide{position:absolute;inset:0;width:1920px;height:1080px;background:var(--color-bg);
+  .slide{position:absolute;inset:0;width:1920px;height:1080px;
+    background-color:var(--color-bg);
+    background-image:
+      radial-gradient(circle, rgba(11,122,87,.26), transparent 55%),
+      radial-gradient(circle, rgba(62,207,154,.18), transparent 58%),
+      radial-gradient(circle, rgba(62,207,154,.10), transparent 55%);
+    background-repeat:no-repeat;
+    background-size:64% 92%, 56% 82%, 46% 72%;
+    background-position:6% 10%, 92% 84%, 64% 2%;
+    animation:liquidbg 30s ease-in-out infinite alternate;
     padding:96px 120px;display:none;flex-direction:column;overflow:hidden;
     -webkit-print-color-adjust:exact;print-color-adjust:exact}
+  /* liquid vault background — slow drifting gradient blobs behind all content */
+  @keyframes liquidbg{
+    0%  {background-position:6% 10%, 92% 84%, 64% 2%;   background-size:64% 92%, 56% 82%, 46% 72%}
+    100%{background-position:22% 28%, 74% 66%, 46% 18%; background-size:74% 104%, 66% 92%, 54% 82%}
+  }
+  @media (prefers-reduced-motion: reduce){ .slide{animation:none} }
   .slide.active{display:flex}
 
   /* signature device: the backstop floor bar along the bottom edge */
@@ -605,7 +620,7 @@
         <h4 style="color:var(--color-primary)">Built &amp; proven</h4>
         <div class="checkline done"><div class="mk">✓</div><div class="tx"><b>Day-4 FDC gate PASSED</b> — <span class="mono">verify…Nonexistence</span> = true in <b>99.3s</b> on Coston2 (round 1409442)</div></div>
         <div class="checkline done"><div class="mk">✓</div><div class="tx"><b>Deployed + source-verified</b> on Coston2 — Backstop <span class="mono">0xe7DF…E708</span>, Pool <span class="mono">0x9c1e…8A9A</span></div></div>
-        <div class="checkline done"><div class="mk">✓</div><div class="tx"><b>91 tests · 100% unit coverage</b> + 4 live-Coston2 fork integration tests</div></div>
+        <div class="checkline done"><div class="mk">✓</div><div class="tx"><b>94 tests · 100% unit coverage</b> + 4 live-Coston2 fork integration tests</div></div>
         <div class="checkline done"><div class="mk">✓</div><div class="tx"><b>Autonomous keeper</b> — watch deadline → prove default → submit claim</div></div>
         <div class="checkline done"><div class="mk">✓</div><div class="tx"><b>6 Flare engine methods</b> on real Coston2 — none mocked · <b>global solvency cap</b> (FTSO-bounded)</div></div>
       </div>
@@ -638,7 +653,7 @@
 <span class="g">✓</span> <span class="p">redemptionRequestInfo</span> → ticket bound<br>
 <span class="g">✓</span> <span class="p">requestAttestation</span> → DA proof fetched<br>
 <span class="g">✓</span> <span class="pink">verifyReferencedPaymentNonexistence</span> → <span class="g">true</span> <span class="c">(99.3s · round 1409442)</span><br>
-<br><span class="c">GATE</span> <span class="g">PASSED</span> <span class="c">· 91 tests · 100% coverage</span>
+<br><span class="c">GATE</span> <span class="g">PASSED</span> <span class="c">· 94 tests · 100% coverage</span>
         </div>
       </div>
       <div class="stack">
@@ -673,7 +688,7 @@
         <div class="contact contrast-check">
           <div><b>Backstop</b> · redemption insurance for FXRP</div>
           <div>Coston2 · Bounty 1 (FAssets) · Flare Summer Signal</div>
-          <div class="muted">Backstop <b class="mono" style="color:var(--color-primary)">0x38EB571B…D743DDca</b> &nbsp;·&nbsp; attestation tx <span class="mono">0x5774…c540a</span></div>
+          <div class="muted">Backstop <b class="mono" style="color:var(--color-primary)">0xe7DFfa49…F052E708</b> &nbsp;·&nbsp; attestation tx <span class="mono">0x5774…c540a</span></div>
         </div>
       </div>
       <div style="display:flex;flex-direction:column;align-items:center;gap:22px">
