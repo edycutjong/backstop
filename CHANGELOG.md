@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/edycutjong/backstop/compare/v1.6.0...v1.6.1) (2026-08-01)
+
+
+### Bug Fixes
+
+* **contracts:** harden + clear all 30 Slither findings (pre-redeploy) ([6cacfa1](https://github.com/edycutjong/backstop/commit/6cacfa1c09d053d5ea3cfca316063cc8666d6610))
+
 # [1.6.0](https://github.com/edycutjong/backstop/compare/v1.5.0...v1.6.0) (2026-08-01)
 
 
