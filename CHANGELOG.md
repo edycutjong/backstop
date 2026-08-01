@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/edycutjong/backstop/compare/v1.5.0...v1.6.0) (2026-08-01)
+
+
+### Features
+
+* **web:** surface the real end-to-end claim on the live site ([48c7795](https://github.com/edycutjong/backstop/commit/48c779570b773406f37b07795ee7ca2a04d80f75)), closes [#1](https://github.com/edycutjong/backstop/issues/1)
+
 # [1.5.0](https://github.com/edycutjong/backstop/compare/v1.4.0...v1.5.0) (2026-07-31)
 
 
