@@ -1,3 +1,10 @@
+## [1.7.1](https://github.com/edycutjong/backstop/compare/v1.7.0...v1.7.1) (2026-08-01)
+
+
+### Bug Fixes
+
+* **web:** /verify shows the real claim reliably (RPC getLogs cap workaround) ([e32cba9](https://github.com/edycutjong/backstop/commit/e32cba96fcd4e08562ed2fe7cafa06aaec6eb771)), closes [#1](https://github.com/edycutjong/backstop/issues/1)
+
 # [1.7.0](https://github.com/edycutjong/backstop/compare/v1.6.1...v1.7.0) (2026-08-01)
 
 
