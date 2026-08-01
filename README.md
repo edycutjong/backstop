@@ -1,9 +1,9 @@
 <div align="center">
-  <img src="docs/icon-animated.svg" alt="Backstop logo" width="120">
+  <a href="https://backstop.edycu.dev/"><img src="docs/icon-animated.svg" alt="Backstop logo — open the live app" width="120"></a>
 
   <h1>Backstop 🛟</h1>
   <p><em>Redemption insurance for FXRP — if your redemption agent never delivers XRP, Flare's own on-chain proof pays you make-whole</em></p>
-  <img src="docs/readme-hero-animated.svg" alt="Backstop" width="100%">
+  <a href="https://backstop.edycu.dev/"><img src="docs/readme-hero-animated.svg" alt="Backstop — open the live app" width="100%"></a>
 
   <br/>
 
