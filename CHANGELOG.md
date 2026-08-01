@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/edycutjong/backstop/compare/v1.6.1...v1.7.0) (2026-08-01)
+
+
+### Features
+
+* redeploy hardened contracts + fresh real end-to-end claim ([c38861a](https://github.com/edycutjong/backstop/commit/c38861a55180fbf19df1b320e51de77c4203a778)), closes [#1](https://github.com/edycutjong/backstop/issues/1)
+
 ## [1.6.1](https://github.com/edycutjong/backstop/compare/v1.6.0...v1.6.1) (2026-08-01)
 
 
