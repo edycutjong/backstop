@@ -11,6 +11,7 @@
   [![Pitch Deck](https://img.shields.io/badge/Pitch_Deck-View-f59e0b?style=for-the-badge&labelColor=0F0F0F)](https://backstop.edycu.dev/pitch)
   [![YouTube Demo](https://img.shields.io/badge/YouTube-Watch_Demo-FF0000?style=for-the-badge&labelColor=0F0F0F&logo=youtube&logoColor=white)](https://youtu.be/4QMxKJnWcSE)
   [![FDC Gate PASSED](https://img.shields.io/badge/FDC_Gate-PASSED_·_99.3s-3ECF9A?style=for-the-badge&labelColor=0F0F0F)](https://coston2-explorer.flare.network/tx/0x5774a7631bdcfcf4d0bc90c25a3ce2c08664451213c617450d73b3a8149c540a)
+  [![Real Claim PAID](https://img.shields.io/badge/Real_Claim-PAID_·_guard_%231-3ECF9A?style=for-the-badge&labelColor=0F0F0F)](https://coston2-explorer.flare.network/tx/0x5fde024fbad3db5f678f06b0a0cfa4f99a7f5c42fb5ecb250840f21fe4713afe)
   [![Deployed on Coston2](https://img.shields.io/badge/Coston2-Deployed_·_Verified-e62058?style=for-the-badge&labelColor=0F0F0F)](https://coston2-explorer.flare.network/address/0xe7DFfa49EC57f5a9ca349C0F9a170950F052E708)
   [![Flare Summer Signal](https://img.shields.io/badge/Flare_Summer_Signal-Bounty_1_·_FAssets-8b5cf6?style=for-the-badge&labelColor=0F0F0F)](https://dorahacks.io/hackathon/flaresummersignal)
   [![DoraHacks BUIDL](https://img.shields.io/badge/DoraHacks-View_BUIDL-6E4AED?style=for-the-badge&labelColor=0F0F0F)](https://dorahacks.io/buidl/47366)
