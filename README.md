@@ -103,6 +103,11 @@ can submit the proof.
 
 `buyGuard` → agent misses deadline → keeper requests RPN proof → `claim` verifies it on-chain → **make-whole payout**
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/be18d34e-34cb-466f-9439-b0d4d0fe90ca" alt="buyGuard premium re-pricing live from FTSO as coverage changes" width="900">
+  <br/><em>buyGuard (wallet connected): the premium re-prices live from the FTSO FLR/USD feed as you type — $0.70 → 1.2281 C2FLR, $2.50 → 4.386 C2FLR.</em>
+</p>
+
 ## ✅ Proof: the Day-4 FDC gate (PASSED)
 
 The whole product hinges on one assertion: that the FDC non-existence round-trip actually works on
@@ -130,6 +135,11 @@ non-payment via FDC → `claim` pays the redeemer make-whole:
 > (block 33493034). Full tx trail + one-command reproduce (`npm run route-b`):
 > [`DEMO.md`](DEMO.md) · [`scripts/route-b.ts`](scripts/route-b.ts).
 
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/d991ce8c-1f72-4885-bac5-210930a92b73" alt="/integrations/verify reading live Coston2 state: guard #1 PAID and the claim payout card" width="900">
+  <br/><em>/integrations/verify, live from Coston2 — guard #1 PAID, payout 111.55 C2FLR at block 33493034 (no wallet needed).</em>
+</p>
+
 ## 🚀 Deployed on Coston2 (chain 114) — verified source
 
 | Contract | Address |
@@ -148,6 +158,12 @@ zero-address checks (Slither: 0 findings). Deploy script: [`script/Deploy.s.sol`
 | **Keeper** | [`scripts/keeper.ts`](scripts/keeper.ts) | autonomous watcher — detects breaches, requests the RPN proof, submits `claim`. `--once` / `--dry-run` modes ([`scripts/KEEPER.md`](scripts/KEEPER.md)) |
 | **Spike** | [`scripts/spike.ts`](scripts/spike.ts) | the Day-4 gate harness (stages a–e) |
 | **Web** | [`web/`](web) | Next.js dApp reading live Coston2 state, incl. the `/integrations/verify` proof route |
+
+<p align="center"><em>Both sides of the market, wallet-connected on Coston2:</em></p>
+
+| Buy a guard — live FTSO premium | Underwrite — live pool position |
+|---|---|
+| ![Buy a guard](docs/screenshots/05-guard-connected-quote.png) | ![Underwrite the pool](docs/screenshots/06-underwrite-connected.png) |
 
 ## 🧪 Testing
 
