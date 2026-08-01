@@ -1,3 +1,10 @@
+## [1.7.2](https://github.com/edycutjong/backstop/compare/v1.7.1...v1.7.2) (2026-08-01)
+
+
+### Bug Fixes
+
+* **web:** point env.example + pitch deck at the redeployed contracts ([24114cf](https://github.com/edycutjong/backstop/commit/24114cf4ee9c65cc89aa938aab60b426de223ef0))
+
 ## [1.7.1](https://github.com/edycutjong/backstop/compare/v1.7.0...v1.7.1) (2026-08-01)
 
 
