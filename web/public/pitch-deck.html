@@ -447,7 +447,7 @@
         <rect x="470" y="60" width="290" height="150" rx="14" fill="#0f2a22" stroke="#3ECF9A" stroke-width="2"/>
         <text x="498" y="106" class="lbl" fill="#3ECF9A">Backstop.sol</text>
         <text x="498" y="134" class="sub">buyGuard · claim · expire</text>
-        <text x="498" y="160" class="sub">0x38EB…DDca · verified</text>
+        <text x="498" y="160" class="sub">0xe7DF…E708 · verified</text>
 
         <!-- Pool -->
         <rect x="470" y="360" width="290" height="130" rx="14" class="box"/>
@@ -551,7 +551,7 @@
         <div class="lrow"><div class="lk">Round-trip <b>request → on-chain verify</b></div><div class="lk muted">headline</div><div class="lv">99.3 s</div></div>
         <div class="lrow"><div class="lk">Voting round</div><div class="lk muted">FDC</div><div class="lv">1,409,442</div></div>
         <div class="lrow"><div class="lk">Attestation tx</div><div class="lk muted">Flarescan</div><div class="lv">0x5774…c540a ↗</div></div>
-        <div class="lrow"><div class="lk">Backstop contract</div><div class="lk muted">verified</div><div class="lv">0x38EB…DDca ↗</div></div>
+        <div class="lrow"><div class="lk">Backstop contract</div><div class="lk muted">verified</div><div class="lv">0xe7DF…E708 ↗</div></div>
         <div class="callout-legend" style="margin-top:24px">
           <div class="ci"><div class="cn">1</div><div><h5>Live pool state, no wallet</h5><p>TVL, share price, guards — all read live from the deployed Coston2 contracts, plus the global solvency cap (coverage bounded by live pool value via FTSO).</p></div></div>
           <div class="ci"><div class="cn">2</div><div><h5>The gate returned true</h5><p>The decoded non-existence proof the contract verified — round <span class="mono">1,409,442</span>, <span class="mono">99.3s</span>. Not our assertion, the protocol's.</p></div></div>
@@ -604,7 +604,7 @@
       <div class="gate-col">
         <h4 style="color:var(--color-primary)">Built &amp; proven</h4>
         <div class="checkline done"><div class="mk">✓</div><div class="tx"><b>Day-4 FDC gate PASSED</b> — <span class="mono">verify…Nonexistence</span> = true in <b>99.3s</b> on Coston2 (round 1409442)</div></div>
-        <div class="checkline done"><div class="mk">✓</div><div class="tx"><b>Deployed + source-verified</b> on Coston2 — Backstop <span class="mono">0x38EB…DDca</span>, Pool <span class="mono">0xc18B…0045</span></div></div>
+        <div class="checkline done"><div class="mk">✓</div><div class="tx"><b>Deployed + source-verified</b> on Coston2 — Backstop <span class="mono">0xe7DF…E708</span>, Pool <span class="mono">0x9c1e…8A9A</span></div></div>
         <div class="checkline done"><div class="mk">✓</div><div class="tx"><b>91 tests · 100% unit coverage</b> + 4 live-Coston2 fork integration tests</div></div>
         <div class="checkline done"><div class="mk">✓</div><div class="tx"><b>Autonomous keeper</b> — watch deadline → prove default → submit claim</div></div>
         <div class="checkline done"><div class="mk">✓</div><div class="tx"><b>6 Flare engine methods</b> on real Coston2 — none mocked · <b>global solvency cap</b> (FTSO-bounded)</div></div>
