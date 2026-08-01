@@ -20,8 +20,11 @@ pragma solidity ^0.8.25;
  *  - A payout can never exceed the pool balance (reverts as insolvent).
  */
 contract BackstopPool {
-    address public owner;
+    address public immutable owner;
     address public backstop;
+
+    // Non-reentrancy lock (1 = unlocked, 2 = entered) — guards the value-moving flows.
+    uint256 private _entered = 1;
 
     uint256 public totalShares;
     mapping(address => uint256) public shares;
@@ -45,16 +48,23 @@ contract BackstopPool {
         _;
     }
 
+    modifier nonReentrant() {
+        require(_entered == 1, "BackstopPool: reentrant");
+        _entered = 2;
+        _;
+        _entered = 1;
+    }
+
     constructor() {
         owner = msg.sender;
     }
 
     /// @notice Wire the Backstop core exactly once.
-    function setBackstop(address _backstop) external onlyOwner {
+    function setBackstop(address newBackstop) external onlyOwner {
         require(backstop == address(0), "BackstopPool: backstop set");
-        require(_backstop != address(0), "BackstopPool: zero backstop");
-        backstop = _backstop;
-        emit BackstopSet(_backstop);
+        require(newBackstop != address(0), "BackstopPool: zero backstop");
+        backstop = newBackstop;
+        emit BackstopSet(newBackstop);
     }
 
     // ── Liquidity provision ────────────────────────────────────────────────
@@ -63,6 +73,7 @@ contract BackstopPool {
     function deposit() external payable returns (uint256 minted) {
         require(msg.value > 0, "BackstopPool: zero deposit");
         uint256 balBefore = address(this).balance - msg.value;
+        // slither-disable-next-line incorrect-equality -- first-deposit / empty-pool bootstrap; exact-zero is the intended branch
         if (totalShares == 0 || balBefore == 0) {
             minted = msg.value;
         } else {
@@ -75,14 +86,15 @@ contract BackstopPool {
     }
 
     /// @notice Burn shares and withdraw the proportional FLR (including accrued premiums).
-    function withdraw(uint256 sharesToBurn) external returns (uint256 amount) {
+    function withdraw(uint256 sharesToBurn) external nonReentrant returns (uint256 amount) {
         require(sharesToBurn > 0 && shares[msg.sender] >= sharesToBurn, "BackstopPool: bad shares");
         amount = (sharesToBurn * address(this).balance) / totalShares;
         shares[msg.sender] -= sharesToBurn;
         totalShares -= sharesToBurn;
+        emit Withdrawn(msg.sender, amount, sharesToBurn);
+        // slither-disable-next-line low-level-calls -- native FLR withdrawal requires a raw call; guarded by nonReentrant + CEI above
         (bool ok,) = msg.sender.call{value: amount}("");
         require(ok, "BackstopPool: withdraw xfer failed");
-        emit Withdrawn(msg.sender, amount, sharesToBurn);
     }
 
     /// @notice Add FLR to the pool WITHOUT minting shares (guard premium accrual).
@@ -92,6 +104,7 @@ contract BackstopPool {
 
     /// @notice Current share price scaled to 1e18 (FLR wei per share).
     function sharePrice() external view returns (uint256) {
+        // slither-disable-next-line incorrect-equality -- empty-pool guard; exact-zero is the intended branch
         if (totalShares == 0) return 1e18;
         return (address(this).balance * 1e18) / totalShares;
     }
@@ -109,11 +122,13 @@ contract BackstopPool {
         exposureUsd[agent] = amountUsd >= cur ? 0 : cur - amountUsd;
     }
 
-    function payout(address to, uint256 amountFlr) external onlyBackstop {
+    function payout(address to, uint256 amountFlr) external onlyBackstop nonReentrant {
+        require(to != address(0), "BackstopPool: zero payout");
         require(amountFlr <= address(this).balance, "BackstopPool: insolvent");
+        emit Paid(to, amountFlr);
+        // slither-disable-next-line low-level-calls -- native FLR payout requires a raw call; guarded by nonReentrant + onlyBackstop
         (bool ok,) = to.call{value: amountFlr}("");
         require(ok, "BackstopPool: payout failed");
-        emit Paid(to, amountFlr);
     }
 
     /// @notice Accept direct funding (e.g. premium forwarded from Backstop).

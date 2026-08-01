@@ -77,11 +77,16 @@ contract Backstop {
 
     // FTSO feed ids — owner-settable because the exact bytes21 is a documented
     // pre-build unknown confirmed by the Day-4 spike (specs/sdk-audit.md unknown #2).
+    // slither-disable-next-line too-many-digits -- canonical Flare FTSO feed id (bytes21 "XRP/USD")
     bytes21 public xrpUsdFeedId = 0x015852502f55534400000000000000000000000000;
+    // slither-disable-next-line too-many-digits -- canonical Flare FTSO feed id (bytes21 "FLR/USD")
     bytes21 public flrUsdFeedId = 0x01464c522f55534400000000000000000000000000;
 
     uint256 public nextGuardId = 1;
     mapping(uint256 => Guard) public guards;
+
+    // Non-reentrancy lock (1 = unlocked, 2 = entered) — guards the value-moving flows.
+    uint256 private _entered = 1;
 
     event GuardBought(
         uint256 indexed guardId,
@@ -93,10 +98,18 @@ contract Backstop {
     event Claimed(uint256 indexed guardId, address indexed redeemer, uint256 payoutFlr);
     event Expired(uint256 indexed guardId);
     event ParamsUpdated();
+    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);
 
     modifier onlyOwner() {
         require(msg.sender == owner, "Backstop: not owner");
         _;
+    }
+
+    modifier nonReentrant() {
+        require(_entered == 1, "Backstop: reentrant");
+        _entered = 2;
+        _;
+        _entered = 1;
     }
 
     constructor(BackstopPool _pool) {
@@ -109,6 +122,7 @@ contract Backstop {
     /// @dev Non-view: FtsoV2.getFeedById is `payable` (a feed fee may apply; Coston2
     ///      core feeds are free, so we forward zero). Frontends read via eth_call.
     function _price(bytes21 feedId) internal returns (uint256 value, int8 decimals) {
+        // slither-disable-next-line unused-return -- FTSO feed timestamp (3rd value) is intentionally unused
         (value, decimals,) = RegistryResolver.ftsoV2().getFeedById(feedId);
         require(value > 0, "Backstop: bad feed");
     }
@@ -150,6 +164,7 @@ contract Backstop {
     /// @notice Pool utilization in bips = active coverage / pool value. 0 when the pool is empty.
     function utilizationBips() public returns (uint256) {
         uint256 pv = poolValueUsd();
+        // slither-disable-next-line incorrect-equality -- empty-pool guard; pv is a derived value, not a manipulable balance check
         if (pv == 0) return 0;
         return (totalActiveCoverageUsd * 10_000) / pv;
     }
@@ -157,7 +172,16 @@ contract Backstop {
     // ── The one flow ────────────────────────────────────────────────────────
 
     /// @notice Bind a guard to a live FXRP redemption and pay the premium.
-    function buyGuard(uint256 redemptionRequestId, uint256 coverageUsd) external payable returns (uint256 guardId) {
+    /// @dev nonReentrant, and every external call below is to a TRUSTED callee — Flare's
+    ///      FTSO oracle (price reads) and our own BackstopPool. No attacker-controlled code
+    ///      runs before the state writes, so the "state-after-call" pattern is not reachable.
+    // slither-disable-start reentrancy-no-eth,reentrancy-benign
+    function buyGuard(uint256 redemptionRequestId, uint256 coverageUsd)
+        external
+        payable
+        nonReentrant
+        returns (uint256 guardId)
+    {
         IAssetManager am = RegistryResolver.assetManagerFXRP();
         RedemptionRequestInfo.Data memory r = am.redemptionRequestInfo(redemptionRequestId);
 
@@ -194,6 +218,7 @@ contract Backstop {
         // Premium accrues to LPs (no shares minted); refund any overpayment.
         pool.fund{value: premium}();
         if (msg.value > premium) {
+            // slither-disable-next-line low-level-calls -- native FLR refund requires a raw call; guarded by nonReentrant + CEI above
             (bool ok,) = msg.sender.call{value: msg.value - premium}("");
             require(ok, "Backstop: refund failed");
         }
@@ -201,10 +226,13 @@ contract Backstop {
         emit GuardBought(guardId, r.redeemer, r.agentVault, coverageUsd, premium);
     }
 
+    // slither-disable-end reentrancy-no-eth,reentrancy-benign
+
     /// @notice Claim a guard by submitting a valid FDC non-existence proof of default.
-    function claim(uint256 guardId, IReferencedPaymentNonexistence.Proof calldata proof) external {
+    function claim(uint256 guardId, IReferencedPaymentNonexistence.Proof calldata proof) external nonReentrant {
         Guard storage g = guards[guardId];
         require(g.status == Status.ACTIVE, "Backstop: guard not active");
+        // slither-disable-next-line timestamp -- deadline comparison is the intended semantic; FDC round bounds any drift
         require(block.timestamp > g.deadlineTs, "Backstop: before deadline");
 
         _verifyDefault(g, proof); // ← isolated FDC gate (option-B swap point)
@@ -220,9 +248,10 @@ contract Backstop {
     }
 
     /// @notice Lapse a guard after the claim grace with no proven default; LPs keep the premium.
-    function expire(uint256 guardId) external {
+    function expire(uint256 guardId) external nonReentrant {
         Guard storage g = guards[guardId];
         require(g.status == Status.ACTIVE, "Backstop: guard not active");
+        // slither-disable-next-line timestamp -- grace-period comparison is intentional and coarse (1h)
         require(block.timestamp > uint256(g.deadlineTs) + claimGrace, "Backstop: grace not passed");
 
         g.status = Status.EXPIRED;
@@ -253,36 +282,37 @@ contract Backstop {
 
     // ── Admin ────────────────────────────────────────────────────────────────
 
-    function setPricing(uint256 _baseBips, uint256 _kBips, uint256 _sigmaBips) external onlyOwner {
-        baseBips = _baseBips;
-        kBips = _kBips;
-        sigmaBips = _sigmaBips;
+    function setPricing(uint256 newBaseBips, uint256 newKBips, uint256 newSigmaBips) external onlyOwner {
+        baseBips = newBaseBips;
+        kBips = newKBips;
+        sigmaBips = newSigmaBips;
         emit ParamsUpdated();
     }
 
-    function setAgentCapUsd(uint256 _capUsd) external onlyOwner {
-        agentCapUsd = _capUsd;
+    function setAgentCapUsd(uint256 newCapUsd) external onlyOwner {
+        agentCapUsd = newCapUsd;
         emit ParamsUpdated();
     }
 
-    function setMaxUtilizationBips(uint256 _bips) external onlyOwner {
-        maxUtilizationBips = _bips;
+    function setMaxUtilizationBips(uint256 newBips) external onlyOwner {
+        maxUtilizationBips = newBips;
         emit ParamsUpdated();
     }
 
-    function setClaimGrace(uint64 _grace) external onlyOwner {
-        claimGrace = _grace;
+    function setClaimGrace(uint64 newGrace) external onlyOwner {
+        claimGrace = newGrace;
         emit ParamsUpdated();
     }
 
-    function setFeedIds(bytes21 _xrpUsd, bytes21 _flrUsd) external onlyOwner {
-        xrpUsdFeedId = _xrpUsd;
-        flrUsdFeedId = _flrUsd;
+    function setFeedIds(bytes21 newXrpUsd, bytes21 newFlrUsd) external onlyOwner {
+        xrpUsdFeedId = newXrpUsd;
+        flrUsdFeedId = newFlrUsd;
         emit ParamsUpdated();
     }
 
     function transferOwnership(address newOwner) external onlyOwner {
         require(newOwner != address(0), "Backstop: zero owner");
+        emit OwnershipTransferred(owner, newOwner);
         owner = newOwner;
     }
 }
