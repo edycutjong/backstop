@@ -1,3 +1,10 @@
+## [1.7.4](https://github.com/edycutjong/backstop/compare/v1.7.3...v1.7.4) (2026-08-02)
+
+
+### Bug Fixes
+
+* **docs:** SMIL README hero — repair STOP shimmer, cradle draw-in, label overlap ([b600980](https://github.com/edycutjong/backstop/commit/b600980a3944683a45636bed43dcc00ef6729d76))
+
 ## [1.7.3](https://github.com/edycutjong/backstop/compare/v1.7.2...v1.7.3) (2026-08-01)
 
 
