@@ -31,7 +31,7 @@ jobs:
       # Code scanning upload needs GitHub Advanced Security (not on free private
       # repos). Skip cleanly while private; uploads automatically once public.
       - name: Upload SARIF
-        uses: github/codeql-action/upload-sarif@v3
+        uses: github/codeql-action/upload-sarif@v4
         if: always() && steps.slither.outputs.sarif != '' && github.event.repository.visibility == 'public'
         continue-on-error: true
         with:
