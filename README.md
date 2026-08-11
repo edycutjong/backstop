@@ -52,6 +52,19 @@ premiums of every guard whose agent paid on time.
 
 **Backstop doesn't re-invent cross-chain trust — it rides Flare's own default mechanism.**
 
+## 👤 Who it's for
+
+- **Primary — the FXRP redeemer.** Anyone converting FXRP back to native XRP through the FAssets
+  redemption queue, and especially **trading desks and treasuries redeeming at size**, for whom a
+  single agent default is a real balance-sheet event. Concretely: the wallet that calls
+  `AssetManager.redeem()` and then has to wait and hope the agent delivers on XRPL.
+- **Secondary — the underwriter (LP).** FLR holders wanting yield uncorrelated with token price.
+  They fund the pool, earn redemption premiums, and are protected by an on-chain per-agent exposure
+  cap and a global solvency cap.
+- **Downstream — FAssets integrators.** Lending markets, DEXes and custodians that would rather
+  quote FXRP redemption risk than absorb it. `buyGuard` is callable by any contract — Backstop is a
+  protocol, not just an app.
+
 ## 🔥 Why this needs Flare — and only Flare
 
 Six engine-class Flare methods, wired in code and proven on Coston2:
@@ -215,11 +228,57 @@ cd web && npm install && npm run dev  # http://localhost:3000
   round (~99 s measured); we surface the wait in the UI rather than hide it.
 - **Linear premium model** (`base + k·σ`) — a deliberate MVP simplification, flagged in code.
 
+## 🆕 What was newly built during the program
+
+**Everything.** Backstop did not exist before this hackathon — no prior codebase, nothing ported,
+nothing carried over. First commit
+[`b2fed37`](https://github.com/edycutjong/backstop/commit/b2fed37cd8c8715cf7dcfafcbdaa36bad1cbfae8)
+is dated **2026-07-25**, inside the program window (development opened June 29, submission closes
+August 14). The whole history is public and reviewable:
+
+```bash
+git log --reverse --format="%h %ad %s" --date=short | head
+```
+
+| | Before | Built during the program |
+|---|---|---|
+| Smart contracts | nothing | **554 lines of Solidity** across 4 contracts |
+| Flare integration | nothing | **6 engine-class methods** (FDC ×3, FAssets, FTSO v2, Registry) |
+| Tests | nothing | **94 tests** — 90 unit (100% line/stmt/func coverage) + 4 live-fork, plus 128k-call invariant runs |
+| Keeper | nothing | TypeScript/`viem` autonomous watcher: deadline → RPN request → DA-Layer poll → `claim` |
+| Web app | nothing | Next.js App Router frontend incl. the public `/integrations/verify` proof route |
+| Deployments | nothing | Both contracts deployed and **source-verified** on Coston2 |
+
+Third-party code is dependencies only (`flare-periphery`, OpenZeppelin, Foundry, `viem`/`wagmi`,
+Next.js) — no application logic borrowed.
+
+**Milestones, all on-chain:** Day-4 FDC gate passed 2026-07-29 (99.3 s round-trip, round 1409442) ·
+full end-to-end claim 2026-08-01 (guard #1 **PAID**, 111.55 C2FLR, block 33493034) · contracts
+hardened and redeployed after clearing all 30 Slither findings.
+
 ## 🗺️ Roadmap
 
-- FBTC / FDOGE coverage — the same RPN machinery generalizes to every FAsset.
-- Risk-tranched pools (senior / junior) on top of the existing solvency engine.
-- Mainnet pilot with a capped underwriting pool.
+**The economics already shipped** — live parameters, readable on-chain from the deployed contract:
+
+| Parameter | Live value | Meaning |
+|---|---|---|
+| `baseBips` / `kBips` / `sigmaBips` | 100 / 50 / 2000 | premium = `base + k·σ` = **110 bips = 1.10% of coverage** |
+| `agentCapUsd` | $100,000 | max exposure to any single agent vault |
+| `maxUtilizationBips` | 8000 | total coverage ≤ **80%** of live pool USD value |
+
+A desk redeeming $10,000 of FXRP pays **$110** to be made whole; the pool holds $1.25 for every $1
+of coverage written.
+
+**Next, in dependency order:**
+
+1. **Calibrate σ against real default history.** The 20% volatility figure is an honest MVP
+   placeholder — fit it to measured FAssets agent default frequency before pricing real risk.
+2. **External audit** of the claim gate and pool share accounting. 94 tests, invariant runs and a
+   clean Slither report are a floor, not a substitute — and a hard prerequisite to mainnet.
+3. **Capped mainnet pilot** post-audit: hard pool ceiling, existing caps, prove the loss ratio over
+   a real quarter before lifting anything.
+4. **FBTC / FDOGE coverage** — the RPN machinery is asset-agnostic and generalizes to every FAsset.
+5. **Risk-tranched pools** (senior / junior) once underwriting demand justifies splitting the curve.
 
 ## 📄 License
 
