@@ -6,7 +6,7 @@ import { Card, CardBody, CardHeader, CardTitle } from "@/components/ui/card";
 import { GuardList } from "@/components/guard-list";
 import { ProofPanel } from "@/components/proof-panel";
 import { ContractLinks } from "@/components/contract-links";
-import { fmtFlr, fmtSharePrice, fmtInt } from "@/lib/format";
+import { fmtFlr, fmtUsd, fmtSharePrice, fmtInt } from "@/lib/format";
 
 const pct = (bips?: bigint) =>
   bips !== undefined ? `${(Number(bips) / 100).toFixed(2)}%` : "—";
@@ -70,12 +70,12 @@ export function VerifyDashboard() {
           <div className="grid grid-cols-2 gap-6 sm:grid-cols-4">
             <Stat
               label="Pool value (USD)"
-              value={`$${fmtFlr(poolValueUsd, 0)}`}
+              value={`$${fmtUsd(poolValueUsd)}`}
               loading={solvencyLoading}
             />
             <Stat
               label="Active coverage (USD)"
-              value={`$${fmtFlr(totalActiveCoverageUsd, 0)}`}
+              value={`$${fmtUsd(totalActiveCoverageUsd)}`}
               loading={solvencyLoading}
             />
             <Stat
@@ -94,7 +94,9 @@ export function VerifyDashboard() {
             <span className="text-slate-300">{pct(maxUtilizationBips)}</span> of
             the pool&apos;s live USD value — enforced on-chain in{" "}
             <code>buyGuard</code> via the FTSO price feed. The pool can always
-            cover every open guard.
+            cover every open guard. USD figures are small because they are the
+            live FTSO valuation of <em>testnet</em> C2FLR — the cap logic is
+            identical on mainnet.
           </p>
         </CardBody>
       </Card>
