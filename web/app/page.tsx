@@ -54,8 +54,8 @@ const proofStrip: {
   suffix?: string;
 }[] = [
   { l: "Day-4 FDC gate · live Coston2", tone: "green", text: "PASSED" },
-  { l: "on-chain non-payment verify", tone: "green", text: "~2 min" },
-  { l: "tests · 100% unit coverage", tone: "mist", to: 91 },
+  { l: "on-chain non-payment verify", tone: "green", text: "99.3 s" },
+  { l: "tests · 100% line coverage", tone: "mist", to: 94 },
   { l: "Flare engine methods, wired", tone: "mist", to: 6 },
   { l: "contracts deployed + verified", tone: "mist", to: 2 },
 ];
@@ -421,7 +421,7 @@ export default function Home() {
           <span className="text-mist-100">claim path is permissionless</span> —
           the keeper is a convenience, not a trust assumption. An autonomous
           watcher requests the proof the moment a deadline breaches, but the
-          redeemer or anyone can submit it. ~500 lines of Solidity, because
+          redeemer or anyone can submit it. ~550 lines of Solidity, because
           Flare enshrines the hard parts.
         </p>
       </Reveal>
