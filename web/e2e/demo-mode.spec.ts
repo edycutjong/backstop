@@ -69,7 +69,7 @@ test.describe("landing page (demo mode, no wallet)", () => {
 
     // The proof strip advertises hard, verifiable facts.
     await expect(page.getByText("Day-4 FDC gate · live Coston2")).toBeVisible();
-    await expect(page.getByText("tests · 100% unit coverage")).toBeVisible();
+    await expect(page.getByText("tests · 100% line coverage")).toBeVisible();
     await expect(page.getByText("Flare engine methods, wired")).toBeVisible();
 
     // The "live pool state" read-from-chain block is present without a wallet.
