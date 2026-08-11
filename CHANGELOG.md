@@ -1,3 +1,11 @@
+## [1.7.5](https://github.com/edycutjong/backstop/compare/v1.7.4...v1.7.5) (2026-08-11)
+
+
+### Bug Fixes
+
+* **security:** bump next 14.2.15 -> 14.2.35 (clears the critical + 2 high CVEs) ([01ffdda](https://github.com/edycutjong/backstop/commit/01ffdda5e05d3975d6bd13e77e0be45128629a6e))
+* **web:** solvency panel showed "$0" — wire up fmtUsd instead of fmtFlr(0dp) ([dc8880f](https://github.com/edycutjong/backstop/commit/dc8880fa95c00767533b6e621263976fa72d382c))
+
 ## [1.7.4](https://github.com/edycutjong/backstop/compare/v1.7.3...v1.7.4) (2026-08-02)
 
 

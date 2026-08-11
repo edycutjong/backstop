@@ -1,6 +1,6 @@
 {
   "name": "backstop",
-  "version": "1.7.4",
+  "version": "1.7.5",
   "private": true,
   "description": "Redemption insurance for FXRP, triggered by Flare FDC ReferencedPaymentNonexistence proofs.",
   "license": "MIT",
