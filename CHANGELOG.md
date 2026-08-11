@@ -1,3 +1,10 @@
+## [1.7.6](https://github.com/edycutjong/backstop/compare/v1.7.5...v1.7.6) (2026-08-11)
+
+
+### Bug Fixes
+
+* **docs:** reconcile every cross-surface number to the verified value ([4d6b3af](https://github.com/edycutjong/backstop/commit/4d6b3af0cb274843e33c4f903a82bab8eaa30797))
+
 ## [1.7.5](https://github.com/edycutjong/backstop/compare/v1.7.4...v1.7.5) (2026-08-11)
 
 
