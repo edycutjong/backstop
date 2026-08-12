@@ -1,3 +1,10 @@
+## [1.7.7](https://github.com/edycutjong/backstop/compare/v1.7.6...v1.7.7) (2026-08-12)
+
+
+### Bug Fixes
+
+* **deps:** clear 17 transitive advisories via pinned overrides and in-range updates ([5c8b3b7](https://github.com/edycutjong/backstop/commit/5c8b3b7b13f0404f48c6996c185807afdc42b817))
+
 ## [1.7.6](https://github.com/edycutjong/backstop/compare/v1.7.5...v1.7.6) (2026-08-11)
 
 
