@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "dotenv": "^16.4.7",
-    "viem": "^2.21.0"
+    "viem": "^2.55.18"
   },
   "devDependencies": {
     "@types/node": "^26.2.0",
