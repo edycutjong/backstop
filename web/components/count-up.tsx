@@ -35,9 +35,15 @@ export function CountUp({
       typeof window !== "undefined" &&
       window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     if (reduce) {
-      setValue(to);
-      setDone(true);
-      return;
+      // Defer to a rAF callback (rather than setting state synchronously in
+      // the effect body) so this update isn't flagged as a cascading render
+      // — matches the animated path below, which also updates state from an
+      // async callback rather than directly in the effect.
+      const raf = requestAnimationFrame(() => {
+        setValue(to);
+        setDone(true);
+      });
+      return () => cancelAnimationFrame(raf);
     }
 
     const io = new IntersectionObserver(

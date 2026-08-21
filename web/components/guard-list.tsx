@@ -8,12 +8,16 @@ import { fmtUsd, fmtDrops, shortHex, fmtCountdown } from "@/lib/format";
 import { explorerAddress } from "@/lib/config";
 
 function Countdown({ deadlineTs }: { deadlineTs: bigint }) {
-  const [, tick] = useState(0);
+  // `now` is captured via useState's lazy initializer (a deferred callback,
+  // not a direct call in the render body) so the Date.now() read stays out
+  // of the render itself; the interval refreshes it every second in an
+  // effect, which is where impure reads belong.
+  const [now, setNow] = useState(() => Date.now());
   useEffect(() => {
-    const id = setInterval(() => tick((n) => n + 1), 1000);
+    const id = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(id);
   }, []);
-  const passed = Number(deadlineTs) - Math.floor(Date.now() / 1000) <= 0;
+  const passed = Number(deadlineTs) - Math.floor(now / 1000) <= 0;
   return (
     <span
       className={`font-mono tabular-nums ${passed ? "text-amber-300" : "text-mist-100"}`}
