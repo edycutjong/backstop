@@ -1,3 +1,10 @@
+## [1.7.9](https://github.com/edycutjong/backstop/compare/v1.7.8...v1.7.9) (2026-08-21)
+
+
+### Bug Fixes
+
+* **web:** bump next 14.2.35 -> 16.3.1, add Turbopack resolveAlias ([f4b1221](https://github.com/edycutjong/backstop/commit/f4b1221a95286ace6791f83b96450286767cbad9))
+
 ## [1.7.8](https://github.com/edycutjong/backstop/compare/v1.7.7...v1.7.8) (2026-08-21)
 
 

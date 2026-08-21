@@ -1,6 +1,6 @@
 {
   "name": "backstop-web",
-  "version": "1.7.8",
+  "version": "1.7.9",
   "private": true,
   "description": "Backstop — judge-facing dApp reading live Coston2 contracts",
   "scripts": {
