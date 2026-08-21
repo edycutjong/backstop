@@ -1,3 +1,10 @@
+## [1.7.10](https://github.com/edycutjong/backstop/compare/v1.7.9...v1.7.10) (2026-08-21)
+
+
+### Bug Fixes
+
+* **web:** bump eslint 8->9.39.5 and eslint-config-next 14->16.3.1 together ([00cb11a](https://github.com/edycutjong/backstop/commit/00cb11ae25ce3b8f9f64f2f2b4c74e135e56c9d2)), closes [#36](https://github.com/edycutjong/backstop/issues/36) [#39](https://github.com/edycutjong/backstop/issues/39)
+
 ## [1.7.9](https://github.com/edycutjong/backstop/compare/v1.7.8...v1.7.9) (2026-08-21)
 
 
