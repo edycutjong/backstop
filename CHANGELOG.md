@@ -1,3 +1,10 @@
+## [1.7.8](https://github.com/edycutjong/backstop/compare/v1.7.7...v1.7.8) (2026-08-21)
+
+
+### Bug Fixes
+
+* **web:** migrate lint script off next lint to eslint CLI ([a1774c4](https://github.com/edycutjong/backstop/commit/a1774c4641d1ea4bccfb857e3c061650de7e6230))
+
 ## [1.7.7](https://github.com/edycutjong/backstop/compare/v1.7.6...v1.7.7) (2026-08-12)
 
 
